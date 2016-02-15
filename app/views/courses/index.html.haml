@@ -1,0 +1,11 @@
+= provide(:title, 'Courses list.')
+
+%h1 Courses list.
+- if @courses.present?
+  %ul
+    - @courses.each do |course|
+      %li
+        = course.title
+  = paginate @courses
+- else
+  %h2 There are no courses yet.
