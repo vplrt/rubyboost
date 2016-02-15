@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  pool: 5
+  username: username
+  password: password
+
+development:
+  <<: *default
+  database: rubyboost_development
+
+test:
+  <<: *default
+  database: rubyboost_test
