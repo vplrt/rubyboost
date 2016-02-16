@@ -1,0 +1,15 @@
+= provide(:title, 'Courses list.')
+
+%h1 Courses list.
+= link_to 'Create new course', new_course_path
+- if @courses.present?
+  %ul
+    - @courses.each do |course|
+      %li
+        = course.title
+        = link_to 'Edit', edit_course_path(course)
+        = link_to 'Delete', course_path(course), method: :delete, data: {confirm: 'Sure?'}
+      %p= image_tag course.picture.thumb if course.picture.thumb.present?
+  = paginate @courses
+- else
+  %h2 There are no courses yet.
