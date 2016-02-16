@@ -10,4 +10,5 @@ RSpec.describe Course, type: :model do
 
   it { should respond_to(:title) }
   it { should respond_to(:active) }
+  it { should respond_to(:picture) }
 end
