@@ -1,4 +1,5 @@
 # Rubyboost
+[![Code Climate](https://codeclimate.com/github/vplrt/rubyboost/badges/gpa.svg)](https://codeclimate.com/github/vplrt/rubyboost)
 
 ### Installation
 
