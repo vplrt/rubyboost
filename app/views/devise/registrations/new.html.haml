@@ -1,0 +1,26 @@
+= provide(:title, 'Sign up.')
+
+.register-box-body
+  %h2.login-box-msg Register a new membership
+
+  = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+    = f.error_notification
+    .form-inputs
+      .form-group.has-feedback
+        = f.input :email, label: false, required: true do
+          = f.input_field :email, placeholder: 'Email', autofocus: true, class: 'form-control'
+          %span.glyphicon.glyphicon-envelope.form-control-feedback
+      .form-group.has-feedback
+        = f.input :password, label: false, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) do
+          = f.input_field :password, placeholder: 'Password', class: 'form-control'
+          %span.glyphicon.glyphicon-lock.form-control-feedback
+      .form-group.has-feedback
+        = f.input :password_confirmation, label: false, required: true do
+          = f.input_field :password_confirmation, placeholder: 'Password confirmation', class: 'form-control'
+          %span.glyphicon.glyphicon-log-in.form-control-feedback
+
+    .row
+      .col-xs-offset-8.col-xs-4
+        .form-actions
+          = f.button :submit, "Sign up", class: "btn btn-primary btn-block btn-flat"
+  = render "devise/shared/links"

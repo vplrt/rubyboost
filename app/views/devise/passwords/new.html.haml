@@ -1,0 +1,17 @@
+= provide(:title, 'Forgot your password?')
+
+.register-box-body
+  %h2.login-box-msg Forgot your password?
+
+  = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+    = f.error_notification
+    .form-inputs
+      .form-group.has-feedback
+        = f.input :email, label: false, required: true do
+          = f.input_field :email, placeholder: 'Email', autofocus: true, class: 'form-control'
+          %span.glyphicon.glyphicon-envelope.form-control-feedback
+    .row
+      .col-xs-12
+        .form-actions
+          = f.button :submit, "Send me reset password instructions", class: "btn btn-primary btn-block btn-flat"
+  = render "devise/shared/links"

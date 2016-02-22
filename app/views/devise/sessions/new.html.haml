@@ -1,0 +1,22 @@
+= provide(:title, 'Sign in')
+
+.register-box-body
+  %h2.login-box-msg Sign in
+
+  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .form-inputs
+      .form-group.has-feedback
+        = f.input :email, label: false do
+          = f.input_field :email, placeholder: 'Email', autofocus: true, class: 'form-control'
+          %span.glyphicon.glyphicon-envelope.form-control-feedback
+      .form-group.has-feedback
+        = f.input :password, label: false do
+          = f.input_field :password, placeholder: 'Password', class: 'form-control'
+          %span.glyphicon.glyphicon-lock.form-control-feedback
+    .row
+      .col-xs-8
+        = f.input :remember_me, as: :boolean, class: 'form-control' if devise_mapping.rememberable?
+      .col-xs-4
+        .form-actions
+          = f.button :submit, "Sign in", class: "btn btn-primary btn-block btn-flat"
+  = render "devise/shared/links"
