@@ -1,0 +1,17 @@
+%header.main-header
+  = link_to root_path do
+    .logo
+      %span.logo-mini Rubyboost
+      %span.logo-lg Rubyboost
+  %nav.navbar.navbar-static-top{:role => "navigation"}
+    %a.sidebar-toggle{"data-toggle" => "offcanvas", :href => "#", :role => "button"}
+      %span.sr-only Toggle navigation
+    .navbar-custom-menu
+      %ul.nav.navbar-nav
+        %li.user.user-menu
+          %a{:href => "#"}
+            %img.user-image{:alt => "User Image", :src => "/assets/user2-160x160.jpg"}/
+            %span.hidden-xs Alexander Pierce
+        %li.user.user-menu
+          %a.btn.btn-warning{:href => "#"}
+            Sign Out

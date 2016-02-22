@@ -1,4 +1,13 @@
 = provide(:title, 'Create new course.')
 
-%h1 Create new course.
-= render 'form', course: @course
+.content-header
+  %h1
+    Create new course.
+
+%section.content
+  .row
+    .col-md-6.col-md-offset-3
+      .box.box-primary
+        .box-header.with-border
+          %h3.box-title Create new course.
+        = render 'form', course: @course

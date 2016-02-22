@@ -1,15 +1,35 @@
 = provide(:title, 'Courses list.')
 
-%h1 Courses list.
-= link_to 'Create new course', new_course_path
-- if @courses.present?
-  %ul
-    - @courses.each do |course|
-      %li
-        = course.title
-        = link_to 'Edit', edit_course_path(course)
-        = link_to 'Delete', course_path(course), method: :delete, data: {confirm: 'Sure?'}
-      %p= image_tag course.picture.thumb if course.picture.thumb.present?
-  = paginate @courses
-- else
-  %h2 There are no courses yet.
+.content-header
+  %h1
+    Courses list.
+    %small All available courses
+  = link_to 'Create new course', new_course_path
+%section.content
+  .row
+    - if @courses.present?
+      - @courses.each do |course|
+        .col-md-4
+          .box.box-widget
+            .box-header.with-border
+              .user-block
+                %img.img-circle{:alt => "user image", :src => "/assets/user1-128x128.jpg"}
+                  %span.username
+                    %a{:href => "#"} Jonathan Burke Jr.
+                  %span.description Shared publicly - 7:30 PM Today
+              .box-tools
+                %button.btn.btn-box-tool{"data-toggle" => "tooltip", :title => "Mark as read"}
+                  %i.fa.fa-circle-o
+                %button.btn.btn-box-tool{"data-widget" => "collapse"}
+                  %i.fa.fa-minus
+                %button.btn.btn-box-tool{"data-widget" => "remove"}
+                  %i.fa.fa-times
+            .box-body
+              = image_tag(course.picture.thumb, alt: "Photo", :class => "img-responsive pad")
+              %h2= course.title
+              = link_to 'Edit', edit_course_path(course)
+              = link_to 'Delete', course_path(course), method: :delete, data: {confirm: 'Sure?'}
+    - else
+      %h2 There are no courses yet.
+  %div{align: "center"}
+    = paginate @courses
