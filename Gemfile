@@ -18,6 +18,7 @@ gem 'mini_magick'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
+gem 'devise', '~> 3.5', '>= 3.5.6'
 
 group :development, :test do
   gem 'byebug'
@@ -37,6 +38,7 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'codeclimate-test-reporter', require: nil
+  gem 'capybara-webkit'
 end
 
 group :production do

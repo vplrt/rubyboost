@@ -20,4 +20,5 @@
 //= require app
 //= require pages/dashboard
 //= require demo
+//= require iCheck/icheck
 //= require_tree .
