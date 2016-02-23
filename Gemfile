@@ -12,6 +12,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'haml', '~> 4.0', '>= 4.0.7'
 gem 'kaminari'
+gem 'kaminari-bootstrap', '~> 3.0', '>= 3.0.1'
 gem 'simple_form', '~> 3.2', '>= 3.2.1'
 gem 'carrierwave'
 gem 'mini_magick'

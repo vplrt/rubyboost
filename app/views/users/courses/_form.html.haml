@@ -1,4 +1,4 @@
-= simple_form_for course do |f|
+= simple_form_for [:users, course] do |f|
   .box-body
     .form-group
       = f.input :title
@@ -8,4 +8,4 @@
     .form-group
       = f.input :active, as: :radio_buttons, input_html: { class: 'minimal' }
     .box-footer
-      = f.button :submit, "Save", class: "btn btn-primary"
+      = f.button :submit, 'Save', class: 'btn btn-primary'

@@ -8,7 +8,12 @@ RSpec.describe Course, type: :model do
   it { is_expected.to validate_presence_of :title }
   it { is_expected.to validate_length_of(:title).is_at_most(100) }
 
-  it { should respond_to(:title) }
-  it { should respond_to(:active) }
-  it { should respond_to(:picture) }
+  describe '#recent' do
+    let!(:course_1) { create :course }
+    let!(:course_2) { create :course }
+
+    it 'should order courses by created_at DESC' do
+      expect(Course.recent.to_a).to eq([course_2, course_1])
+    end
+  end
 end

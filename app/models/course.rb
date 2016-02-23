@@ -4,4 +4,6 @@ class Course < ActiveRecord::Base
   mount_uploader :picture, CoursePictureUploader
 
   scope :recent, -> { order(created_at: :desc) }
+
+  belongs_to :user
 end
