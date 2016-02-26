@@ -1,0 +1,60 @@
+= provide(:title, 'Dashboard')
+
+%section.content-header
+  %h1
+    Dashboard
+%section.content
+  .row
+    .col-md-4
+      .box.box-primary
+        .box-body.box-profile
+          %img.profile-user-img.img-responsive.img-circle{:alt => 'User profile picture', :src => '/assets/user2-160x160.jpg'}
+            %h3.profile-username.text-center Alexander Pierce
+            %p.text-muted.text-center
+              = @user.email
+            %ul.list-group.list-group-unbordered
+              %li.list-group-item
+                %b Courses
+                %a.pull-right
+                  = @user.courses.count
+            = link_to edit_user_registration_path, class: 'btn btn-primary btn-block' do
+              %b Edit account
+            = link_to new_users_course_path, class: 'btn btn-primary btn-block' do
+              %b Create new course
+            = link_to users_courses_path, class: 'btn btn-primary btn-block' do
+              %b My courses
+    .col-md-8
+      .box.box-primary
+        .box-header.with-border
+          %h3.box-title Recently Added Courses
+          .box-tools.pull-right
+            %button.btn.btn-box-tool{'data-widget' => 'collapse'}
+              %i.fa.fa-minus
+            %button.btn.btn-box-tool{'data-widget' => 'remove'}
+              %i.fa.fa-times
+        .box-body
+          %ul.products-list.product-list-in-box
+            - @courses.each do |course|
+              %li.item
+                .row
+                  .col-md-8.col-xs-12
+                    .product-img
+                      = image_tag(course.picture.admin_thumb, alt: 'Course picture')
+                    .product-info
+                      %a.product-title
+                        = course.title
+                      %span.product-description
+                        = l(course.created_at, format: '%d %B %Y')
+                  .col-md-1.col-xs-12
+                    - if course.active
+                      %span.label.label-success
+                        Active
+                    -else
+                      %span.label.label-danger
+                        Inactive
+                  .col-md-3.col-xs-12
+                    .btn-group.pull-right
+                      = link_to 'Edit', edit_users_course_path(course), class: 'btn btn-primary'
+                      = link_to 'Delete', users_course_path(course), method: :delete, data: {confirm: 'Are you shure?'}, class: 'btn btn-primary'
+        .box-footer.text-center
+          = paginate @courses

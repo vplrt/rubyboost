@@ -29,3 +29,7 @@ config/database.yml
 
 *.sublime-project
 *.sublime-workspace
+
+# Ignore test-related files
+/coverage.data
+/coverage/*

@@ -1,0 +1,28 @@
+%aside.main-sidebar
+  %section.sidebar
+    -if signed_in?
+      .user-panel
+        .pull-left.image
+          = image_tag 'user2-160x160.jpg', class: 'img-circle'
+        .pull-left.info
+          %p Alexander Pierce
+          %a{href: '#'}
+            %i.fa.fa-circle.text-success
+            Online
+    %form.sidebar-form{action: '#', method: 'get'}
+      .input-group
+        %input.form-control{name: 'q', placeholder: 'Search...', type: 'text'}
+        %span.input-group-btn
+          %button#search-btn.btn.btn-flat{name: 'search', type: 'submit'}
+            %i.fa.fa-search
+    %ul.sidebar-menu
+      %li.header MAIN NAVIGATION
+      -if signed_in?
+        %li.active
+          = link_to user_path current_user do
+            %i.fa.fa-dashboard
+            %span Dashboard
+      %li
+        = link_to courses_path do
+          %i.fa.fa-files-o
+          %span Courses

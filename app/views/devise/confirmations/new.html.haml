@@ -1,0 +1,18 @@
+= provide(:title, 'Resend confirmation instructions.')
+
+.register-box-body
+  %p.login-box-msg Resend confirmation instructions
+
+  = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+    = f.error_notification
+    = f.full_error :confirmation_token
+    .form-inputs
+      .form-group.has-feedback
+        = f.input :email, label: false, required: true do
+          = f.input_field :email, placeholder: 'Email', autofocus: true, class: 'form-control'
+          %span.glyphicon.glyphicon-envelope.form-control-feedback
+    .row
+      .col-xs-12
+        .form-actions
+          = f.button :submit, 'Resend confirmation instructions', class: 'btn btn-primary btn-block btn-flat'
+  = render 'devise/shared/links'

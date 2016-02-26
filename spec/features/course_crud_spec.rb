@@ -1,10 +1,15 @@
 require 'rails_helper'
 
 feature 'Course CRUD' do
-  given!(:course) { create(:course) }
+  given(:user) { create(:user) }
+  given!(:course) { create(:course, user: user) }
+
+  background do
+    signin(user.email, user.password)
+  end
 
   scenario 'User is able to create course.' do
-    visit new_course_path
+    visit new_users_course_path
     fill_in 'Title', with: 'Test course.'
     expect do
       click_button 'Save'
@@ -14,7 +19,7 @@ feature 'Course CRUD' do
   end
 
   scenario 'User is able to delete course.' do
-    visit courses_path
+    visit user_path user
     expect do
       click_link 'Delete'
     end.to change(Course, :count).by(-1)
@@ -23,7 +28,7 @@ feature 'Course CRUD' do
   end
 
   scenario 'User is able to delete course.' do
-    visit edit_course_path course
+    visit edit_users_course_path course
     fill_in 'Title', with: 'Other course.'
     click_button 'Save'
 

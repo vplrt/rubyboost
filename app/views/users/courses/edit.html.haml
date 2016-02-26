@@ -1,0 +1,13 @@
+= provide(:title, 'Edit course.')
+
+.content-header
+  %h1
+    Edit course.
+
+%section.content
+  .row
+    .col-md-6.col-md-offset-3
+      .box.box-primary
+        .box-header.with-border
+          %h3.box-title Edit course.
+        = render 'form', course: @course
