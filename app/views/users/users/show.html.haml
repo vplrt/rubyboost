@@ -8,21 +8,21 @@
     .col-md-4
       .box.box-primary
         .box-body.box-profile
-          %img.profile-user-img.img-responsive.img-circle{:alt => 'User profile picture', :src => '/assets/user2-160x160.jpg'}
-            %h3.profile-username.text-center Alexander Pierce
-            %p.text-muted.text-center
-              = @user.email
-            %ul.list-group.list-group-unbordered
-              %li.list-group-item
-                %b Courses
-                %a.pull-right
-                  = @user.courses.count
-            = link_to edit_user_registration_path, class: 'btn btn-primary btn-block' do
-              %b Edit account
-            = link_to new_users_course_path, class: 'btn btn-primary btn-block' do
-              %b Create new course
-            = link_to users_courses_path, class: 'btn btn-primary btn-block' do
-              %b My courses
+          = image_tag 'user2-160x160.jpg', class: 'profile-user-img img-responsive img-circle', alt: 'User profile picture'
+          %h3.profile-username.text-center Alexander Pierce
+          %p.text-muted.text-center
+            = @user.email
+          %ul.list-group.list-group-unbordered
+            %li.list-group-item
+              %b Courses
+              %a.pull-right
+                = @user.courses.count
+          = link_to edit_user_registration_path, class: 'btn btn-primary btn-block' do
+            %b Edit account
+          = link_to new_users_course_path, class: 'btn btn-primary btn-block' do
+            %b Create new course
+          = link_to users_courses_path, class: 'btn btn-primary btn-block' do
+            %b My courses
     .col-md-8
       .box.box-primary
         .box-header.with-border

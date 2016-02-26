@@ -2,13 +2,13 @@
   .box.box-widget
     .box-header.with-border
       .user-block
-        %img.img-circle{alt: 'user image', src: '/assets/user1-128x128.jpg'}
-          %span.username
-            %a{href: '#'}
-            = course.user.email
-          %span.description
-            Shared publicly -
-            = l(course.created_at, format: '%d %B %Y')
+        = image_tag 'user1-128x128.jpg', class: 'img-circle', alt: 'User profile picture'
+        %span.username
+          %a{href: '#'}
+          = course.user.email
+        %span.description
+          Shared publicly -
+          = l(course.created_at, format: '%d %B %Y')
       .box-tools
         %button.btn.btn-box-tool{'data-toggle' => 'tooltip', title: 'Mark as read'}
           %i.fa.fa-circle-o
