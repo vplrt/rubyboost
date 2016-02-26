@@ -1,6 +1,6 @@
 class Users::CoursesController < ApplicationController
-  before_action :find_course, only: [:edit, :update, :destroy]
   before_filter :authenticate_user!
+  before_action :find_course, only: [:edit, :update, :destroy]
 
   PER_PAGE = 9
 
