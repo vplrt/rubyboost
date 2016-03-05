@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   scope module: 'users' do
-    resources :users, only: :show
+    resource :dashboard, only: :show
   end
 
   root 'courses#index'

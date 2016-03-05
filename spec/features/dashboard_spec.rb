@@ -6,7 +6,7 @@ feature 'Dashboard' do
 
   background do
     signin(user.email, user.password)
-    visit user_path user
+    visit dashboard_path
   end
 
   scenario 'user can navigate by CRUD actions here' do

@@ -19,7 +19,7 @@
       %li.header MAIN NAVIGATION
       -if signed_in?
         %li.active
-          = link_to user_path current_user do
+          = link_to dashboard_path do
             %i.fa.fa-dashboard
             %span Dashboard
       %li

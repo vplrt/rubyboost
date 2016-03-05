@@ -11,12 +11,12 @@
           = image_tag 'user2-160x160.jpg', class: 'profile-user-img img-responsive img-circle', alt: 'User profile picture'
           %h3.profile-username.text-center Alexander Pierce
           %p.text-muted.text-center
-            = @user.email
+            = @dashboard.user.email
           %ul.list-group.list-group-unbordered
             %li.list-group-item
               %b Courses
               %a.pull-right
-                = @user.courses.count
+                = @dashboard.user.courses.count
           = link_to edit_user_registration_path, class: 'btn btn-primary btn-block' do
             %b Edit account
           = link_to new_users_course_path, class: 'btn btn-primary btn-block' do
@@ -34,7 +34,7 @@
               %i.fa.fa-times
         .box-body
           %ul.products-list.product-list-in-box
-            - @courses.each do |course|
+            - @dashboard.courses.each do |course|
               %li.item
                 .row
                   .col-md-8.col-xs-12
@@ -57,4 +57,4 @@
                       = link_to 'Edit', edit_users_course_path(course), class: 'btn btn-primary'
                       = link_to 'Delete', users_course_path(course), method: :delete, data: {confirm: 'Are you shure?'}, class: 'btn btn-primary'
         .box-footer.text-center
-          = paginate @courses
+          = paginate @dashboard.courses

@@ -19,7 +19,7 @@ feature 'Course CRUD' do
   end
 
   scenario 'User is able to delete course.' do
-    visit user_path user
+    visit dashboard_path user
     expect do
       click_link 'Delete'
     end.to change(Course, :count).by(-1)
