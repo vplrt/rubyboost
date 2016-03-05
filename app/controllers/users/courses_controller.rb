@@ -4,7 +4,7 @@ class Users::CoursesController < Users::BaseController
   PER_PAGE = 9
 
   def index
-    @courses = current_user.courses.recent.page(params[:page]).per(PER_PAGE)
+    @courses = current_user.courses.visible.recent.page(params[:page]).per(PER_PAGE)
   end
 
   def new
@@ -41,7 +41,7 @@ class Users::CoursesController < Users::BaseController
   private
 
   def course_params
-    params.require(:course).permit(:title, :active, :picture)
+    params.require(:course).permit(:title, :visible, :picture)
   end
 
   def find_course

@@ -3,6 +3,6 @@ FactoryGirl.define do
     user
 
     sequence(:title) { |n| "CourseTitle #{n}." }
-    active true
+    visible true
   end
 end

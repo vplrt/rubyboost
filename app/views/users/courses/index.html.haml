@@ -8,8 +8,8 @@
   .row
     - if @courses.present?
       - @courses.each do |course|
-        = render 'courses/course' , course: course
+        = render 'courses/course', course: course
     - else
       %h2 There are no courses yet.
-  .text-center}
+  .text-center
     = paginate @courses
