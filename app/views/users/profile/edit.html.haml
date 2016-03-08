@@ -26,11 +26,11 @@
             .form-inputs
               .form-group.has-feedback
                 = pf.input :first_name, label: false, autocomplete: "off", required: false do
-                  = pf.input_field :first_name, class: 'form-control'
+                  = pf.input_field :first_name, placeholder: 'First name', class: 'form-control'
                   %span.glyphicon.glyphicon-user.form-control-feedback
               .form-group.has-feedback
                 = pf.input :last_name, label: false, autocomplete: "off", required: false do
-                  = pf.input_field :last_name, class: 'form-control'
+                  = pf.input_field :last_name, placeholder: 'Last name', class: 'form-control'
                   %span.glyphicon.glyphicon-user.form-control-feedback
           .row
             .col-xs-offset-8.col-xs-4

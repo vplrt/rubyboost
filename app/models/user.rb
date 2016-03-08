@@ -10,11 +10,20 @@ class User < ActiveRecord::Base
   has_many :social_profiles
   has_many :courses, dependent: :destroy
 
+  after_create :create_user_profile
+
   accepts_nested_attributes_for :profile
 
   delegate :first_name, :last_name, to: :profile, allow_nil: true
 
   def full_name
     first_name + ' ' + last_name
+  end
+
+  private
+
+  def create_user_profile
+    build_profile
+    profile.save(validates: false)
   end
 end
