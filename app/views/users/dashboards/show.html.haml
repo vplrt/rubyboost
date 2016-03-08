@@ -9,7 +9,8 @@
       .box.box-primary
         .box-body.box-profile
           = image_tag 'user2-160x160.jpg', class: 'profile-user-img img-responsive img-circle', alt: 'User profile picture'
-          %h3.profile-username.text-center Alexander Pierce
+          -if current_user.first_name
+            %h3.profile-username.text-center= current_user.full_name
           %p.text-muted.text-center
             = @dashboard.user.email
           %ul.list-group.list-group-unbordered

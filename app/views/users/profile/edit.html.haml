@@ -1,0 +1,40 @@
+= provide(:title, "Edit profile data")
+
+.row
+  .col-md-offset-4.col-md-4
+    .register-box
+      .register-box-body
+        %h2.login-box-msg
+          Update profile data
+
+        = simple_form_for current_user, url: users_profile_path, html: { method: :put } do |f|
+          = f.error_notification
+          .form-inputs
+            .form-group.has-feedback
+              = f.input :email, label: false, required: true, autofocus: true do
+                = f.input_field :email, placeholder: 'Email', class: 'form-control'
+                %span.glyphicon.glyphicon-envelope.form-control-feedback
+          .form-group.has-feedback
+            = f.input :password, label: false, autocomplete: "off", required: false do
+              = f.input_field :password, placeholder: 'Password', class: 'form-control'
+              %span.glyphicon.glyphicon-lock.form-control-feedback
+          .form-group.has-feedback
+            = f.input :password_confirmation, label: false, required: false do
+              = f.input_field :password_confirmation, placeholder: 'Password confirmation', class: 'form-control'
+              %span.glyphicon.glyphicon-log-in.form-control-feedback
+          = f.simple_fields_for :profile do |pf|
+            .form-inputs
+              .form-group.has-feedback
+                = pf.input :first_name, label: false, autocomplete: "off", required: false do
+                  = pf.input_field :first_name, class: 'form-control'
+                  %span.glyphicon.glyphicon-user.form-control-feedback
+              .form-group.has-feedback
+                = pf.input :last_name, label: false, autocomplete: "off", required: false do
+                  = pf.input_field :last_name, class: 'form-control'
+                  %span.glyphicon.glyphicon-user.form-control-feedback
+          .row
+            .col-xs-offset-8.col-xs-4
+              .form-actions
+                = f.button :submit, "Save", class: "btn btn-primary btn-block btn-flat"
+
+        = link_to "Dashboard", dashboard_path

@@ -5,7 +5,10 @@
         = image_tag 'user1-128x128.jpg', class: 'img-circle', alt: 'User profile picture'
         %span.username
           %a{href: '#'}
-          = course.user.email
+          -if course.user.first_name
+            = course.user.full_name
+          -else
+            = course.user.email
         %span.description
           Shared publicly -
           = l(course.created_at, format: '%d %B %Y')

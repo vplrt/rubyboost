@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   resources :courses, only: :index
 
   namespace :users do
+    resource :profile, only: [:edit, :update], controller: :profile
     resources :courses
   end
 
