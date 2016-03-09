@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_one  :profile
   has_many :social_profiles
   has_many :courses, dependent: :destroy
+  has_many :course_users
+  has_many :participated_courses, through: :course_users, source: :course
 
   after_create :create_user_profile
 
@@ -18,6 +20,10 @@ class User < ActiveRecord::Base
 
   def full_name
     first_name + ' ' + last_name
+  end
+
+  def participate_in?(course)
+    course_users.exists?(course_id: course.id)
   end
 
   private

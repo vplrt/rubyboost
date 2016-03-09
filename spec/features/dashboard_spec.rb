@@ -15,8 +15,4 @@ feature 'Dashboard' do
     expect(page).to have_link 'Edit'
     expect(page).to have_link 'Delete'
   end
-
-  scenario "has link 'Edit account'" do
-    expect(page).to have_link 'Edit account'
-  end
 end

@@ -22,3 +22,12 @@
     .box-body
       = image_tag(course.picture.thumb, alt: 'Course photo', class: 'img-responsive pad')
       %h2= course.title
+      .row
+        .col-xs-6
+          - if user_signed_in?
+            %div{ id: "subscription-button-#{course.id}", style: ('display: none;' if current_user.participate_in?(course)) }
+              = link_to 'Подать заявку', course_subscriptions_path(course), method: :post, remote: true, class: 'btn btn-success btn-block btn-flat'
+            %div{ id: "unsubscription-button-#{course.id}", style: ('display: none;' unless current_user.participate_in?(course)) }
+              = link_to 'Отписаться', course_subscriptions_path(course), method: :delete, remote: true, class: 'btn btn-warning btn-block btn-flat'
+        .col-xs-offset-2.col-xs-4
+          = link_to 'Show more', course_path(course), class: "btn btn-primary btn-block btn-flat"

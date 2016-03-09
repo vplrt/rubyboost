@@ -7,4 +7,6 @@ class Course < ActiveRecord::Base
   scope :visible, -> { where(visible: true) }
 
   belongs_to :user
+  has_many :course_users
+  has_many :participants, through: :course_users, source: :user
 end

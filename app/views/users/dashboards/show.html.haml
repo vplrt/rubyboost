@@ -18,12 +18,8 @@
               %b Courses
               %a.pull-right
                 = @dashboard.user.courses.count
-          = link_to edit_user_registration_path, class: 'btn btn-primary btn-block' do
-            %b Edit account
           = link_to new_users_course_path, class: 'btn btn-primary btn-block' do
             %b Create new course
-          = link_to users_courses_path, class: 'btn btn-primary btn-block' do
-            %b My courses
     .col-md-8
       .box.box-primary
         .box-header.with-border
