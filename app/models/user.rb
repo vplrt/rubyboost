@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :courses, dependent: :destroy
   has_many :course_users
   has_many :participated_courses, through: :course_users, source: :course
+  has_many :lessons, dependent: :destroy
 
   after_create :create_user_profile
 

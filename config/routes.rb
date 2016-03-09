@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   namespace :users do
     resource :profile, only: [:edit, :update], controller: :profile
-    resources :courses
+    resources :courses do
+      resources :lessons, only: [:new, :create, :destroy]
+    end
   end
 
   scope module: 'users' do

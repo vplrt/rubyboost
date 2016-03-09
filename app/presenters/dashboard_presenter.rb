@@ -9,6 +9,6 @@ class DashboardPresenter
   end
 
   def courses
-    @user.courses.recent.page(params[:page]).per(PER_PAGE)
+    @user.courses.includes(:lessons).recent.page(params[:page]).per(PER_PAGE)
   end
 end

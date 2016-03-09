@@ -15,10 +15,20 @@
               -else
                 = @course.user.email
             %span.description
-              Shared publicly -
               = l(@course.created_at, format: '%d %B %Y')
         .box-body
           = image_tag(@course.picture.thumb, alt: 'Course photo', class: 'img-responsive pad')
+          %h2.box-title Lessons:
+          %ul.products-list.product-list-in-box
+            - @course.lessons.find_each do |lesson|
+              %li.item
+                .row
+                  .col-md-12.col-xs-12
+                    .product-img
+                      = image_tag(lesson.picture.admin_thumb, alt: 'Lesson picture')
+                    .product-info
+                      %h4.product-title
+                        = lesson.title
           %h2 Participants:
           %table.table.table-bordered
             %tbody#participants-list

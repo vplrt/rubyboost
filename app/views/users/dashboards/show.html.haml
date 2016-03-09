@@ -5,7 +5,7 @@
     Dashboard
 %section.content
   .row
-    .col-md-4
+    .col-md-3
       .box.box-primary
         .box-body.box-profile
           = image_tag 'user2-160x160.jpg', class: 'profile-user-img img-responsive img-circle', alt: 'User profile picture'
@@ -20,7 +20,7 @@
                 = @dashboard.user.courses.count
           = link_to new_users_course_path, class: 'btn btn-primary btn-block' do
             %b Create new course
-    .col-md-8
+    .col-md-9
       .box.box-primary
         .box-header.with-border
           %h3.box-title Recently Added Courses
@@ -34,14 +34,25 @@
             - @dashboard.courses.each do |course|
               %li.item
                 .row
-                  .col-md-8.col-xs-12
+                  .col-md-6.col-xs-12
                     .product-img
                       = image_tag(course.picture.admin_thumb, alt: 'Course picture')
                     .product-info
-                      %a.product-title
-                        = course.title
+                      %h4.product-title
+                        = link_to course_path(course) do
+                          = course.title
                       %span.product-description
                         = l(course.created_at, format: '%d %B %Y')
+                      %hr
+                      Количество уроков:
+                      = course.lessons.length
+                      %br
+                      - course.lessons.each do |lesson|
+                        .product-title
+                          = lesson.title
+                          .btn-group.pull-right
+                            = link_to 'Delete', users_course_lesson_path(course, lesson), method: :delete, data: {confirm: 'Are you shure?'}, class: 'btn btn-xs btn-primary'
+                        %br
                   .col-md-1.col-xs-12
                     - if course.visible
                       %span.label.label-success
@@ -49,8 +60,9 @@
                     -else
                       %span.label.label-danger
                         Invisible
-                  .col-md-3.col-xs-12
+                  .col-md-5.col-xs-12
                     .btn-group.pull-right
+                      = link_to 'Add lesson', new_users_course_lesson_path(course), class: 'btn btn-primary'
                       = link_to 'Edit', edit_users_course_path(course), class: 'btn btn-primary'
                       = link_to 'Delete', users_course_path(course), method: :delete, data: {confirm: 'Are you shure?'}, class: 'btn btn-primary'
         .box-footer.text-center
