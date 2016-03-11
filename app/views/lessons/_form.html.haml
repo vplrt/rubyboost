@@ -1,9 +1,9 @@
-= simple_form_for [:users, :course, lesson] do |f|
+= simple_form_for [:course, lesson] do |f|
   .box-body
     .form-group
       = f.input :title
     .form-group
-      = f.input :position
+      = f.input :position, collection: 1..default_position, selected: default_position
     .form-group
       = f.input :description
     .form-group

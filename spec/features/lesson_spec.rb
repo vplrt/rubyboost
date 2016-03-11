@@ -9,9 +9,8 @@ feature 'Create' do
   end
 
   scenario 'Course author is able to create lesson.' do
-    visit new_users_course_lesson_path course
+    visit new_course_lesson_path course
     fill_in 'Title', with: 'Test course.'
-    fill_in 'Position', with: '1'
     fill_in 'Description', with: 'Test description'
     fill_in 'Notes', with: 'Test notes.'
     fill_in 'Homework', with: 'Test homework'

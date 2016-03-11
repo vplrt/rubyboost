@@ -51,7 +51,7 @@
                         .product-title
                           = lesson.title
                           .btn-group.pull-right
-                            = link_to 'Delete', users_course_lesson_path(course, lesson), method: :delete, data: {confirm: 'Are you shure?'}, class: 'btn btn-xs btn-primary'
+                            = link_to 'Delete', course_lesson_path(course, lesson), method: :delete, data: {confirm: 'Are you shure?'}, class: 'btn btn-xs btn-primary'
                         %br
                   .col-md-1.col-xs-12
                     - if course.visible
@@ -62,7 +62,7 @@
                         Invisible
                   .col-md-5.col-xs-12
                     .btn-group.pull-right
-                      = link_to 'Add lesson', new_users_course_lesson_path(course), class: 'btn btn-primary'
+                      = link_to 'Add lesson', new_course_lesson_path(course), class: 'btn btn-primary'
                       = link_to 'Edit', edit_users_course_path(course), class: 'btn btn-primary'
                       = link_to 'Delete', users_course_path(course), method: :delete, data: {confirm: 'Are you shure?'}, class: 'btn btn-primary'
         .box-footer.text-center

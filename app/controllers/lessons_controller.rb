@@ -1,5 +1,10 @@
-class Users::LessonsController < Users::BaseController
+class LessonsController < Users::BaseController
+  before_filter :authenticate_user!
   before_action :find_lesson, only: [:destroy]
+
+  def index
+    @lessons = course.lessons.by_position
+  end
 
   def new
     @lesson = course.lessons.build
@@ -35,4 +40,6 @@ class Users::LessonsController < Users::BaseController
   def course
     @course = Course.find(params[:course_id])
   end
+
+  helper_method :course
 end

@@ -1,0 +1,33 @@
+= provide(:title, 'Lessons')
+%section.content
+  .row
+    .col-xs-12
+      .box
+        .box-header
+          %h3.box-title
+            %b
+              "
+              = course.title
+              "
+            course
+            lessons:
+        .box-body.table-responsive.no-padding
+          %table.table.table-hover.fa-hover
+            %tr
+              %th Picture
+              %th Position
+              %th Title
+              %th Description
+              %th Notes
+              %th Homework
+
+            - @lessons.each do |lesson|
+              %tr
+                %td
+                  .product-img
+                    = image_tag(lesson.picture.admin_thumb, alt: 'Lesson picture')
+                %td= lesson.position
+                %td= lesson.title
+                %td= lesson.description
+                %td= lesson.notes
+                %td= lesson.homework

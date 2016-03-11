@@ -3,13 +3,12 @@ Rails.application.routes.draw do
 
   resources :courses, only: [:index, :show] do
     resource :subscriptions, only: [:create, :destroy], controller: :course_subscriptions
+    resources :lessons, only: [:new, :create, :destroy, :index]
   end
 
   namespace :users do
     resource :profile, only: [:edit, :update], controller: :profile
-    resources :courses do
-      resources :lessons, only: [:new, :create, :destroy]
-    end
+    resources :courses
   end
 
   scope module: 'users' do

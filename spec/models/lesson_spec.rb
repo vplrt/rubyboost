@@ -12,4 +12,13 @@ RSpec.describe Lesson, type: :model do
 
   it { should belong_to :user }
   it { should belong_to :course }
+
+  describe '#by_position' do
+    let!(:lesson_1) { create :lesson, position: 1 }
+    let!(:lesson_2) { create :lesson, position: 2 }
+
+    it 'should order courses by position ASC' do
+      expect(Lesson.by_position.to_a).to eq([lesson_1, lesson_2])
+    end
+  end
 end
