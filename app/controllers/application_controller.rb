@@ -12,9 +12,8 @@ class ApplicationController < ActionController::Base
   end
 
   def filter_expelled_users!
-    if current_user.expelled?(course)
-      flash[:error] = 'Вы были отчислены с курса.'
-      redirect_to course
-    end
+    return unless current_user.expelled?(course)
+    flash[:error] = 'Вы были отчислены с курса.'
+    redirect_to course
   end
 end

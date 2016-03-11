@@ -1,7 +1,11 @@
 class LessonsController < Users::BaseController
   before_filter :authenticate_user!
   before_filter :filter_expelled_users!, only: [:index]
-  before_action :find_lesson, only: [:destroy]
+  before_action :find_lesson, only: [:show, :destroy]
+
+  def show
+    @homework = @lesson.homeworks.build
+  end
 
   def index
     @lessons = course.lessons.by_position
@@ -39,14 +43,7 @@ class LessonsController < Users::BaseController
   end
 
   def course
-    @course = Course.find(params[:course_id])
-  end
-
-  def filter_expelled_users!
-    if current_user.expelled?(course)
-      flash[:error] = 'Вы были отчислены с курса.'
-      redirect_to course
-    end
+    Course.find(params[:course_id])
   end
 
   helper_method :course

@@ -1,0 +1,18 @@
+- if user_homework(current_user, lesson)
+  %h3 Your homework:
+  %p= user_homework(current_user, lesson).body
+= simple_form_for([lesson, homework], url: homeworks_path(lesson), remote: true) do |f|
+  #mynewpost.modal.fade{'aria-hidden' => 'true', 'aria-labelledby' => 'myModalLabel', :role => 'dialog', tabindex: '-1'}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', type: 'button'}
+            %span{'aria-hidden' => 'true'} &times;
+          %h4#myModalLabel.modal-title Send hometask
+        .modal-body
+          = f.error_notification
+          .field
+            = f.input :body, class: 'homework-body'
+        .modal-footer
+          %button.btn.btn-default{'data-dismiss' => 'modal', type: 'button'} Close
+          = f.button :submit, 'Send', class: 'btn btn-primary'

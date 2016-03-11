@@ -5,7 +5,7 @@ RSpec.describe Users::LessonsController, type: :controller do
   let!(:lesson) { create :lesson, course: course }
   let(:invalid_lesson) { create :invalid_lesson }
 
-  describe '#create' do
+  describe '#new' do
     login_user
 
     before { get :new, course_id: course }

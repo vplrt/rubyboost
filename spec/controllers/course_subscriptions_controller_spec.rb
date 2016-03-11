@@ -6,7 +6,7 @@ RSpec.describe CourseSubscriptionsController, type: :controller do
   describe '#create' do
     login_user
 
-    it 'adds current user to course participants ' do
+    it 'adds current user to course participants' do
       expect { post :create, course_id: course.id, format: :js }.to change(course.participants, :count).by(1)
     end
   end

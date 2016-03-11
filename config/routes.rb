@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :courses, only: [:index, :show] do
     resource :subscriptions, only: [:create, :destroy], controller: :course_subscriptions
-    resources :lessons, only: [:new, :create, :destroy, :index]
+    resources :lessons, except: [:edit, :update]
   end
 
   namespace :users do
@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
   scope module: 'users' do
     resource :dashboard, only: :show
+
+    scope '/lessons/:lesson_id' do
+      resources :homeworks
+    end
   end
 
   post '/courses/:course_id/participants/:user_id/expel', to: 'course_expulsions#create', as: :expel_course_participant
