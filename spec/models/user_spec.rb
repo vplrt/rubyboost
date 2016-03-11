@@ -31,4 +31,16 @@ RSpec.describe User, type: :model do
       expect(user.participate_in?(course)).to eq(true)
     end
   end
+
+  describe '#expelled?' do
+    let(:expelled_course_user) { create(:expelled_course_user) }
+    let(:course_user) { create(:course_user) }
+
+    it 'should return true if User is expelled' do
+      expect(expelled_course_user.user.expelled?(expelled_course_user.course)).to eq(true)
+    end
+    it 'should return false if User is expelled' do
+      expect(course_user.user.expelled?(course_user.course)).to eq(false)
+    end
+  end
 end

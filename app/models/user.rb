@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
     course_users.exists?(course_id: course.id)
   end
 
+  def expelled?(course)
+    course_users.find_by(course_id: course.id).try(:expelled)
+  end
+
   private
 
   def create_user_profile

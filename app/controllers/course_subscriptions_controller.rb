@@ -1,5 +1,6 @@
 class CourseSubscriptionsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :filter_expelled_users!
 
   def create
     course.participants << current_user

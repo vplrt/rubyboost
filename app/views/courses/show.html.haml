@@ -20,11 +20,3 @@
           = image_tag(@course.picture.thumb, alt: 'Course photo', class: 'img-responsive pad')
           %h2.box-title
             = link_to 'View Lessons', course_lessons_path(@course)
-          %h2 Participants:
-          %table.table.table-bordered
-            %tbody#participants-list
-              %tr
-                %th Participant name
-                %th Participant email
-                - @course.participants.includes(:profile).find_each do |participant|
-                  = render 'participant', course: @course, user: participant

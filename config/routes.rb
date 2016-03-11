@@ -15,5 +15,7 @@ Rails.application.routes.draw do
     resource :dashboard, only: :show
   end
 
+  post '/courses/:course_id/participants/:user_id/expel', to: 'course_expulsions#create', as: :expel_course_participant
+
   root 'courses#index'
 end

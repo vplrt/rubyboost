@@ -44,15 +44,6 @@
                       %span.product-description
                         = l(course.created_at, format: '%d %B %Y')
                       %hr
-                      Количество уроков:
-                      = course.lessons.length
-                      %br
-                      - course.lessons.each do |lesson|
-                        .product-title
-                          = lesson.title
-                          .btn-group.pull-right
-                            = link_to 'Delete', course_lesson_path(course, lesson), method: :delete, data: {confirm: 'Are you shure?'}, class: 'btn btn-xs btn-primary'
-                        %br
                   .col-md-1.col-xs-12
                     - if course.visible
                       %span.label.label-success
@@ -65,5 +56,35 @@
                       = link_to 'Add lesson', new_course_lesson_path(course), class: 'btn btn-primary'
                       = link_to 'Edit', edit_users_course_path(course), class: 'btn btn-primary'
                       = link_to 'Delete', users_course_path(course), method: :delete, data: {confirm: 'Are you shure?'}, class: 'btn btn-primary'
+                .row
+                  .col-md-6.col-xs-12
+                    %b
+                      Количество уроков:
+                    = course.lessons.length
+                    %br
+                    - course.lessons.each do |lesson|
+                      .product-title
+                        = lesson.title
+                        .btn-group.pull-right
+                          = link_to 'Delete', course_lesson_path(course, lesson), method: :delete, data: {confirm: 'Are you shure?'}, class: 'btn btn-xs btn-primary'
+                      %br
+                    =link_to 'Показать уроки', course_lessons_path(course), class: 'btn btn-primary'
+                  .col-md-6.col-xs-12
+                    %b
+                      Участники:
+                    - course.participants.includes(:profile).each do |participant|
+                      .row
+                        .col-md-5.col-xs-12
+                          .product-title
+                            = participant.full_name if participant.first_name
+                        .col-md-4.col-xs-12
+                          .product-title
+                            = participant.email if participant.email
+                        .col-md-3
+                          %div{ id: "expel-button-#{course_user_id(course, participant)}", style: ('display: none;' if participant.expelled?(course)) }
+                            = link_to 'Отчислить', expel_course_participant_path(course, participant), method: :post, remote: true, class: 'btn btn-xs btn-primary'
+                          %div{ id: "disabled-expel-button-#{course_user_id(course, participant)}", style: ('display: none;' unless participant.expelled?(course)) }
+                            = link_to 'Отчислить', expel_course_participant_path(course, participant), method: :post, remote: true, class: 'btn disabled btn-xs btn-primary'
+                      %br
         .box-footer.text-center
           = paginate @dashboard.courses
