@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
   private
 
   def create_user_profile
+    return if profile
     build_profile
     profile.save(validates: false)
   end
