@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 feature 'Course subscription' do
-  given(:course) { create(:course) }
+  given(:coach) { create(:coach) }
+  given(:course) { create(:course, user: coach) }
   given(:user) { create(:user) }
   given(:course_user) { create(:expelled_course_user) }
 

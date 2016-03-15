@@ -23,6 +23,8 @@ gem 'devise', '~> 3.5', '>= 3.5.6'
 gem 'omniauth'
 gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
+gem 'cancancan'
+gem 'rolify'
 
 group :development, :test do
   gem 'byebug'

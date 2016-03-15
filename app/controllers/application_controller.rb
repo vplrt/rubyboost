@@ -5,9 +5,16 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
-  protected
+  rescue_from CanCan::AccessDenied, with: :not_autorized
+
+  private
 
   def layout_by_resource
     devise_controller? ? 'devise_layout' : 'application'
+  end
+
+  def not_autorized
+    flash[:error] = 'You not authorized to perform this action'
+    redirect_to root_path
   end
 end

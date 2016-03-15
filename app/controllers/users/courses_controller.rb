@@ -1,5 +1,6 @@
 class Users::CoursesController < Users::BaseController
   before_action :find_course, only: [:edit, :update, :destroy]
+  authorize_resource
 
   def new
     @course = current_user.courses.build
