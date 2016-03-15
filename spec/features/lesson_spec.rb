@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 feature 'Create' do
-  given(:user) { create(:user) }
-  given!(:course) { create(:course, user: user) }
+  given(:coach) { create(:coach) }
+  given!(:course) { create(:course, user: coach) }
 
   background do
-    signin(user.email, user.password)
+    signin(coach.email, coach.password)
   end
 
   scenario 'Course author is able to create lesson.' do

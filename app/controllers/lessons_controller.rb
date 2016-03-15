@@ -2,6 +2,7 @@ class LessonsController < Users::BaseController
   before_filter :authenticate_user!
   before_filter :filter_expelled_users!, only: [:index, :show]
   before_action :find_lesson, only: [:show, :destroy]
+  authorize_resource except: [:index]
 
   def show
     @homework = @lesson.homeworks.build

@@ -16,8 +16,12 @@ class Ability
   def user_abilities(user)
     guest_abilities
 
-    can :read, [:dashboard]
-    can :read, [Lesson]
+    can :read, :dashboard
+
+    can :read, Lesson do |lesson|
+      lesson.course.participants.pluck(:id).include? user.id
+    end
+
     can :manage, [Profile, Homework, CourseUser], user_id: user.id
   end
 

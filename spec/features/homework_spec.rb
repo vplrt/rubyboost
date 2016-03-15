@@ -4,6 +4,8 @@ feature 'Homework' do
   given(:lesson) { create(:lesson) }
   given(:user) { create(:user) }
 
+  before { lesson.course.participants << user }
+
   scenario 'user can send his homework.', js: true do
     signin(user.email, user.password)
     visit course_lesson_path(lesson.course, lesson)
