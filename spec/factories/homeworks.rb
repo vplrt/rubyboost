@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :homework do
-    user_id 1
-    lesson_id 1
+    user
+    lesson
     body 'MyText'
   end
 end

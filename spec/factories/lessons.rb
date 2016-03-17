@@ -2,20 +2,11 @@ FactoryGirl.define do
   factory :lesson do
     user
     course
-    sequence(:title) { |n| "CourseTitle #{n}." }
-    sequence(:position) { |n| n }
-    sequence(:description) { |n| "Description #{n}." }
-    sequence(:notes) { |n| "Notes #{n}." }
-    sequence(:homework) { |n| "Homework #{n}." }
-  end
 
-  factory :invalid_lesson, class: 'Lesson' do
-    user
-    course
-    title nil
-    position nil
-    description nil
-    notes nil
-    homework nil
+    title { Faker::Lorem.sentence }
+    sequence(:position) { |n| n }
+    description { Faker::Lorem.paragraph(2) }
+    sequence(:notes) { Faker::Lorem.paragraph(2) }
+    sequence(:homework) { Faker::Lorem.paragraph(2) }
   end
 end

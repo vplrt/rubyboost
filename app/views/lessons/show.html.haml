@@ -31,6 +31,6 @@
               = link_to 'Back to lessons', course_lessons_path(course), class: "btn btn-primary btn-block btn-flat"
             #send-button
               .col-md-offset-4.col-md-4
-                - unless user_homework(current_user, @lesson)
+                - unless @lesson.user_homework(current_user)
                   %button.btn.btn-primary.btn-block.btn-flat{'data-target' => '#mynewpost', 'data-toggle' => 'modal', type: 'button'}
                     Send hometask

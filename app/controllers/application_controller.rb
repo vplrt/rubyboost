@@ -10,10 +10,4 @@ class ApplicationController < ActionController::Base
   def layout_by_resource
     devise_controller? ? 'devise_layout' : 'application'
   end
-
-  def filter_expelled_users!
-    return unless current_user.expelled?(course)
-    flash[:error] = 'Вы были отчислены с курса.'
-    redirect_to course
-  end
 end

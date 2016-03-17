@@ -8,6 +8,5 @@ class CourseExpulsionsController < ApplicationController
   def course_user
     CourseUser.find_by(course_id: params[:course_id], user_id: params[:user_id])
   end
-
   helper_method :course_user
 end
