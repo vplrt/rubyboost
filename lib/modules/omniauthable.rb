@@ -46,7 +46,7 @@ module Omniauthable
 
     def password_required?
       return false if social_login
-      # !persisted? || !password.nil? || !password_confirmation.nil?
+      !persisted? || !password.nil? || !password_confirmation.nil?
     end
 
     def email_required?

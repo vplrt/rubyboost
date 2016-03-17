@@ -23,7 +23,7 @@
                     = l(course.created_at, format: '%d %B %Y')
                   %hr
               .col-md-1.col-xs-12
-                - if course.visible
+                - if course.visible?
                   %span.label.label-success
                     Visible
                 -else

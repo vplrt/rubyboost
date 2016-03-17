@@ -6,7 +6,7 @@ user = User.create!(
   password_confirmation: '11111111'
 )
 
-User.last.add_role(:coach)
+user.add_role(:coach)
 
 Profile.create!(
   first_name: Faker::Name.first_name,
@@ -23,7 +23,7 @@ User.create!(
 Profile.create!(
   first_name: Faker::Name.first_name,
   last_name:  Faker::Name.last_name,
-  user_id: User.last.id
+  user: user
 )
 
 12.times do
