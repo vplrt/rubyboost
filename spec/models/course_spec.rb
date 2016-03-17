@@ -16,4 +16,13 @@ RSpec.describe Course, type: :model do
       expect(Course.recent.to_a).to eq([course_2, course_1])
     end
   end
+
+  describe '#visible' do
+    let!(:course_1) { create :course }
+    let!(:course_2) { create :course, visible: false }
+
+    it 'should return only visible course' do
+      expect(Course.visible.to_a).to eq([course_1])
+    end
+  end
 end

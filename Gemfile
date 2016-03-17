@@ -20,6 +20,9 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
 gem 'devise', '~> 3.5', '>= 3.5.6'
+gem 'omniauth'
+gem 'omniauth-vkontakte'
+gem 'omniauth-twitter'
 
 group :development, :test do
   gem 'byebug'
@@ -29,11 +32,13 @@ group :development, :test do
   gem 'launchy'
   gem 'database_cleaner'
   gem 'faker'
+  gem 'dotenv-rails', require: 'dotenv/rails-now'
 end
 
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'bullet'
 end
 
 group :test do

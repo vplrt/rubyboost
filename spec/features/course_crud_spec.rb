@@ -11,6 +11,7 @@ feature 'Course CRUD' do
   scenario 'User is able to create course.' do
     visit new_users_course_path
     fill_in 'Title', with: 'Test course.'
+    choose('No')
     expect do
       click_button 'Save'
     end.to change(Course, :count).by(1)
@@ -19,7 +20,7 @@ feature 'Course CRUD' do
   end
 
   scenario 'User is able to delete course.' do
-    visit user_path user
+    visit dashboard_path user
     expect do
       click_link 'Delete'
     end.to change(Course, :count).by(-1)

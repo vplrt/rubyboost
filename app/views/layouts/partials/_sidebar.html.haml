@@ -5,7 +5,8 @@
         .pull-left.image
           = image_tag 'user2-160x160.jpg', class: 'img-circle'
         .pull-left.info
-          %p Alexander Pierce
+          -if current_user.first_name
+            %p= current_user.full_name
           %a{href: '#'}
             %i.fa.fa-circle.text-success
             Online
@@ -17,11 +18,19 @@
             %i.fa.fa-search
     %ul.sidebar-menu
       %li.header MAIN NAVIGATION
-      -if signed_in?
+      - if signed_in?
         %li.active
-          = link_to user_path current_user do
+          = link_to dashboard_path do
             %i.fa.fa-dashboard
             %span Dashboard
+        %li
+          =link_to edit_user_registration_path do
+            %i.fa.fa-user
+            %span Edit registration data
+        %li
+          =link_to edit_users_profile_path do
+            %i.fa.fa-user
+            %span Edit profile
       %li
         = link_to courses_path do
           %i.fa.fa-files-o

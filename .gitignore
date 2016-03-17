@@ -33,3 +33,5 @@ config/database.yml
 # Ignore test-related files
 /coverage.data
 /coverage/*
+
+.env

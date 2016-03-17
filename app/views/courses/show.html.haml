@@ -1,0 +1,22 @@
+= provide(:title, "#{@course.title}")
+
+%section.content
+  .row
+    .col-md-offset-3.col-md-6
+      .box.box-widget
+        .box-header.with-border
+          %h1= @course.title
+          .user-block
+            = image_tag 'user1-128x128.jpg', class: 'img-circle', alt: 'User profile picture'
+            %span.username
+              %a{href: '#'}
+              -if @course.user.first_name
+                = @course.user.full_name
+              -else
+                = @course.user.email
+            %span.description
+              = l(@course.created_at, format: '%d %B %Y')
+        .box-body
+          = image_tag(@course.picture.thumb, alt: 'Course photo', class: 'img-responsive pad center-block')
+          %h2.box-title
+            = link_to 'View Lessons', course_lessons_path(@course)

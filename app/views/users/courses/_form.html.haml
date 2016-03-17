@@ -6,6 +6,6 @@
       = f.input :picture, as: :file
       %p.help-block Выберите файл для добавления
     .form-group
-      = f.input :active, as: :radio_buttons, input_html: { class: 'minimal' }
+      = f.input :visible, as: :radio_buttons, input_html: { class: 'minimal' }
     .box-footer
       = f.button :submit, 'Save', class: 'btn btn-primary'

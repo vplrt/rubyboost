@@ -1,12 +1,5 @@
-class Users::CoursesController < ApplicationController
-  before_filter :authenticate_user!
+class Users::CoursesController < Users::BaseController
   before_action :find_course, only: [:edit, :update, :destroy]
-
-  PER_PAGE = 9
-
-  def index
-    @courses = current_user.courses.recent.page(params[:page]).per(PER_PAGE)
-  end
 
   def new
     @course = current_user.courses.build
@@ -16,7 +9,7 @@ class Users::CoursesController < ApplicationController
     @course = current_user.courses.build(course_params)
 
     if @course.save
-      redirect_to user_path(current_user), notice: 'Создан новый курс.'
+      redirect_to dashboard_path, notice: 'Создан новый курс.'
     else
       render :new
     end
@@ -27,7 +20,7 @@ class Users::CoursesController < ApplicationController
 
   def update
     if @course.update(course_params)
-      redirect_to user_path(current_user), notice: 'Курс успешно обновлен.'
+      redirect_to dashboard_path, notice: 'Курс успешно обновлен.'
     else
       render :edit
     end
@@ -36,13 +29,13 @@ class Users::CoursesController < ApplicationController
   def destroy
     @course.destroy
 
-    redirect_to user_path(current_user), notice: 'Курс удален!'
+    redirect_to dashboard_path, notice: 'Курс удален!'
   end
 
   private
 
   def course_params
-    params.require(:course).permit(:title, :active, :picture)
+    params.require(:course).permit(:title, :visible, :picture)
   end
 
   def find_course

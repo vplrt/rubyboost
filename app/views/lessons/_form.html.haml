@@ -1,0 +1,17 @@
+= simple_form_for [:course, lesson] do |f|
+  .box-body
+    .form-group
+      = f.input :title
+    .form-group
+      = f.input :position, collection: 1..default_position, selected: default_position
+    .form-group
+      = f.input :description
+    .form-group
+      = f.input :notes
+    .form-group
+      = f.input :homework
+    .form-group
+      = f.input :picture, as: :file
+      %p.help-block Выберите файл для добавления
+    .box-footer
+      = f.button :submit, 'Save', class: 'btn btn-primary btn-block btn-flat'

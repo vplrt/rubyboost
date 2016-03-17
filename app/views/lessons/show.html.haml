@@ -1,0 +1,36 @@
+= provide(:title, "#{@lesson.title}")
+
+%section.content
+  .row
+    .col-md-offset-3.col-md-6
+      .box.box-widget
+        .box-header.with-border
+          %h1= @lesson.title
+          .user-block
+            = image_tag 'user1-128x128.jpg', class: 'img-circle', alt: 'User profile picture'
+            %span.username
+              %a{href: '#'}
+              -if @lesson.course.user.first_name
+                = @lesson.course.user.full_name
+              -else
+                = @lesson.course.user.email
+            %span.description
+              = l(@lesson.created_at, format: '%d %B %Y')
+        .box-body
+          = image_tag(@lesson.picture.thumb, alt: 'Lesson photo', class: 'img-responsive pad center-block')
+          %h3 Description
+          %p= @lesson.description
+          %h3 Notes
+          %p= @lesson.notes
+          %h3 Hometask
+          %p= @lesson.homework
+          #homework_container
+            = render 'homework_container', homework: @homework, lesson: @lesson
+          .row
+            .col-md-4
+              = link_to 'Back to lessons', course_lessons_path(course), class: "btn btn-primary btn-block btn-flat"
+            #send-button
+              .col-md-offset-4.col-md-4
+                - unless @lesson.user_homework(current_user)
+                  %button.btn.btn-primary.btn-block.btn-flat{'data-target' => '#mynewpost', 'data-toggle' => 'modal', type: 'button'}
+                    Send hometask

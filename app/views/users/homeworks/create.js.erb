@@ -1,0 +1,3 @@
+$("#mynewpost").modal('hide');
+$('#send-button').html('');
+$('#homework_container').prepend('<%= j render 'lessons/homework_container', homework: @homework, lesson: lesson %>');
