@@ -1,9 +1,10 @@
+# rubocop: disable Metrics/AbcSize
 class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user
-      (user.has_role? :coach) ? coach_abilities(user) : user_abilities(user)
+    if user.present?
+      user.has_role?(:coach) ? coach_abilities(user) : user_abilities(user)
     else
       guest_abilities
     end
@@ -19,17 +20,21 @@ class Ability
     can :read, :dashboard
 
     can :read, Lesson do |lesson|
-      lesson.course.participants.pluck(:id).include? user.id
+      !user.expelled?(lesson.course) && lesson.course.participants.pluck(:id).include?(user.id)
     end
 
-    can :manage, [Profile, Homework, CourseUser], user_id: user.id
+    can :manage, [Profile, Homework], user_id: user.id
+
+    can [:subscribe, :unsubscribe], CourseUser do |course_user|
+      !user.expelled?(course_user.course)
+    end
   end
 
   def coach_abilities(user)
     user_abilities(user)
 
-    can :manage, :course_expulsion do |course_user|
-      course_user.user_id == user.id
+    can :expel, CourseUser do |course_user|
+      course_user.course.user_id == user.id
     end
 
     can :manage, [Course, Lesson], user_id: user.id

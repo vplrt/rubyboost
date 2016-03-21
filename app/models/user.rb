@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:vkontakte, :twitter]
 
-  has_one  :profile
+  has_one  :profile, dependent: :destroy
   has_many :social_profiles
   has_many :courses, dependent: :destroy
   has_many :course_users

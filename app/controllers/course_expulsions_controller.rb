@@ -1,7 +1,6 @@
 class CourseExpulsionsController < ApplicationController
-  authorize_resource class: CourseUser
-
   def create
+    authorize! :expel, CourseUser
     course_user.expel!
   end
 

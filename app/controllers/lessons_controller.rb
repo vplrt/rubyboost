@@ -1,8 +1,7 @@
 class LessonsController < Users::BaseController
   before_filter :authenticate_user!
-  before_filter :filter_expelled_users!, only: [:index, :show]
   before_action :find_lesson, only: [:show, :destroy]
-  authorize_resource except: [:index]
+  authorize_resource
 
   def show
     @homework = @lesson.homeworks.build
@@ -48,10 +47,4 @@ class LessonsController < Users::BaseController
   end
 
   helper_method :course
-
-  def filter_expelled_users!
-    return unless current_user.expelled?(course)
-    flash[:error] = 'Вы были отчислены с курса.'
-    redirect_to course
-  end
 end
