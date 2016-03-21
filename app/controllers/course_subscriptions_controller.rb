@@ -3,7 +3,13 @@ class CourseSubscriptionsController < ApplicationController
 
   def create
     authorize! :subscribe, CourseUser
-    course.participants << current_user
+
+    if current_user.email.present?
+      course.participants << current_user
+    else
+      flash[:alert] = 'Please fill in your email and password, before.'
+      render js: "window.location = '#{edit_users_profile_path}'"
+    end
   end
 
   def destroy
