@@ -17,9 +17,7 @@
               %th Picture
               %th Position
               %th Title
-              %th Description
-              %th Notes
-              %th Homework
+              %th Date
 
             - @lessons.each do |lesson|
               %tr
@@ -28,6 +26,4 @@
                     = image_tag(lesson.picture.admin_thumb, alt: 'Lesson picture')
                 %td= lesson.position
                 %td= link_to lesson.title, course_lesson_path(course, lesson)
-                %td= lesson.description
-                %td= lesson.notes
-                %td= lesson.homework
+                %td= lesson.date.strftime('%c')

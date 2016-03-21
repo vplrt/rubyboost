@@ -40,13 +40,18 @@
                   Количество уроков:
                 = course.lessons.length
                 %br
-                - course.lessons.each do |lesson|
-                  .product-title
-                    = lesson.title
-                    .btn-group.pull-right
-                      = link_to 'Delete', course_lesson_path(course, lesson), method: :delete, data: {confirm: 'Are you shure?'}, class: 'btn btn-xs btn-primary'
-                  %br
-                =link_to 'Показать уроки', course_lessons_path(course), class: 'btn btn-primary'
+                %table.table.table-hover.fa-hover
+                  - course.lessons.each do |lesson|
+                    %tr
+                      %td
+                        .product-title
+                          = link_to lesson.title, course_lesson_path(course, lesson)
+                      %td
+                        = lesson.date.strftime('%x')
+                      %td
+                        .btn-group.pull-right
+                          = link_to 'Delete', course_lesson_path(course, lesson), method: :delete, data: {confirm: 'Are you shure?'}, class: 'btn btn-xs btn-primary'
+                = link_to 'Показать все уроки', course_lessons_path(course), class: 'btn btn-primary'
               .col-md-6.col-xs-12
                 %b
                   Участники:
