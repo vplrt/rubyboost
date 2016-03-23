@@ -25,6 +25,7 @@ gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 gem 'cancancan'
 gem 'rolify'
+gem 'aasm'
 
 group :development, :test do
   gem 'byebug'

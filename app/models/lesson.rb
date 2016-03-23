@@ -1,4 +1,6 @@
 class Lesson < ActiveRecord::Base
+  include AASM
+
   belongs_to :user
   belongs_to :course
   has_many :homeworks, dependent: :destroy
@@ -13,6 +15,20 @@ class Lesson < ActiveRecord::Base
 
   before_create :increment_positions
   after_destroy :decrement_positions
+
+  aasm column: :state do
+    state :pending_conduction, initial: true
+    state :pending_for_materials
+    state :materials_uploaded
+
+    event :conduct_lesson do
+      transitions from: :pending_conduction, to: :pending_for_materials
+    end
+
+    event :send_materials do
+      transitions from: :pending_for_materials, to: :materials_uploaded
+    end
+  end
 
   def user_homework(user)
     homeworks.where(user: user).first
