@@ -27,6 +27,14 @@ gem 'cancancan'
 gem 'rolify'
 gem 'aasm'
 
+gem 'sidekiq', '~>3.5.4'
+gem 'sidekiq-status'
+gem 'sidekiq-failures'
+gem 'sidekiq-unique-jobs'
+gem 'sinatra', require: false
+gem 'slim'
+gem 'foreman'
+
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
@@ -36,6 +44,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'faker'
   gem 'dotenv-rails', require: 'dotenv/rails-now'
+  gem 'letter_opener'
 end
 
 group :development do

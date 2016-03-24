@@ -13,11 +13,17 @@ class Homework < ActiveRecord::Base
     state :rejected
 
     event :approve do
-      transitions from: :pending, to: :approved
+      transitions from: :pending, to: :approved, after: :send_homework_state_notification
     end
 
     event :reject do
-      transitions from: :pending, to: :rejected
+      transitions from: :pending, to: :rejected, after: :send_homework_state_notification
     end
+  end
+
+  private
+
+  def send_homework_state_notification
+    HomeworkStateNotificationWorker.perform_async(id, user.id)
   end
 end

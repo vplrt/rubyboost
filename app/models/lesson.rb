@@ -26,7 +26,7 @@ class Lesson < ActiveRecord::Base
     end
 
     event :send_materials do
-      transitions from: :pending_for_materials, to: :materials_uploaded
+      transitions from: :pending_for_materials, to: :materials_uploaded, after: :send_lesson_notification
     end
   end
 
@@ -46,5 +46,9 @@ class Lesson < ActiveRecord::Base
     Lesson.where(course_id: course_id).where('position >= ?', position).each do |lesson|
       lesson.decrement! :position
     end
+  end
+
+  def send_lesson_notification
+    ScheduleMaterialsUploadedNotificationWorker.perform_async(id)
   end
 end

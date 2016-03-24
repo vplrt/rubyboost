@@ -1,5 +1,9 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+
+  mount Sidekiq::Web, at: '/sidekiq'
 
   resources :courses, only: [:index, :show] do
     resource :subscriptions, only: [:create, :destroy], controller: :course_subscriptions
