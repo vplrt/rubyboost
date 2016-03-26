@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :participated_courses, through: :course_users, source: :course
   has_many :lessons, dependent: :destroy
   has_many :homeworks, dependent: :destroy
+  has_many :feeds, class_name: 'Activity', foreign_key: :recipient_id, dependent: :destroy
+  has_many :actions, class_name: 'Activity', foreign_key: :owner_id, dependent: :destroy
 
   after_create :create_user_profile
 

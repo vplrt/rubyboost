@@ -4,6 +4,8 @@ class Homework < ActiveRecord::Base
   belongs_to :user
   belongs_to :lesson
 
+  has_many :activities, as: :trackable, dependent: :destroy
+
   validates :body, presence: true
   validates :user_id, uniqueness: { scope: :lesson_id, allow_blank: false }
 
@@ -12,12 +14,12 @@ class Homework < ActiveRecord::Base
     state :approved
     state :rejected
 
-    event :approve do
-      transitions from: :pending, to: :approved, after: :send_homework_state_notification
+    event :approve, after_commit: [:send_homework_state_notification, :create_homework_activity] do
+      transitions from: :pending, to: :approved
     end
 
-    event :reject do
-      transitions from: :pending, to: :rejected, after: :send_homework_state_notification
+    event :reject, after_commit: [:send_homework_state_notification, :create_homework_activity] do
+      transitions from: :pending, to: :rejected
     end
   end
 
@@ -25,5 +27,15 @@ class Homework < ActiveRecord::Base
 
   def send_homework_state_notification
     HomeworkStateNotificationWorker.perform_async(id, user.id)
+  end
+
+  def create_homework_activity
+    Activity.create!(
+      owner_id: lesson.user_id,
+      recipient_id: user.id,
+      trackable: self,
+      kind: approved? ? Activity::KIND_HOMEWORK_APPROVED : Activity::KIND_HOMEWORK_REJECTED,
+      message: "Your homework for course  '#{lesson.course.title}' Lesson '#{lesson.position}: #{lesson.title}' was #{state}!"
+    )
   end
 end

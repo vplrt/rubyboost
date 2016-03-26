@@ -26,6 +26,7 @@ gem 'omniauth-twitter'
 gem 'cancancan'
 gem 'rolify'
 gem 'aasm'
+gem 'draper'
 
 gem 'sidekiq', '~>3.5.4'
 gem 'sidekiq-status'
@@ -57,6 +58,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'codeclimate-test-reporter', require: nil
   gem 'capybara-webkit'
+  gem 'test_after_commit'
 end
 
 group :production do

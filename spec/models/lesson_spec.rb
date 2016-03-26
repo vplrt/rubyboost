@@ -13,6 +13,8 @@ RSpec.describe Lesson, type: :model do
   it { should belong_to :user }
   it { should belong_to :course }
 
+  it { should have_many :activities }
+
   describe '#by_position' do
     let!(:lesson_1) { create :lesson, position: 1 }
     let!(:lesson_2) { create :lesson, position: 2 }
@@ -23,6 +25,7 @@ RSpec.describe Lesson, type: :model do
   end
 
   describe '#state' do
+    let(:user) { create :user }
     let(:lesson) { create :lesson }
 
     it 'has initial state: pending_conduction' do
@@ -38,6 +41,15 @@ RSpec.describe Lesson, type: :model do
       lesson.conduct_lesson!
       lesson.send_materials!
       expect(lesson.materials_uploaded?).to eq true
+    end
+
+    it 'send_materials creates new activity feed' do
+      lesson.course.participants << user
+
+      expect do
+        lesson.conduct_lesson!
+        lesson.send_materials!
+      end.to change(Activity, :count).by(1)
     end
   end
 end

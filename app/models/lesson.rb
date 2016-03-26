@@ -4,6 +4,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :user
   belongs_to :course
   has_many :homeworks, dependent: :destroy
+  has_many :activities, as: :trackable, dependent: :destroy
 
   scope :by_position, -> { order(position: :asc) }
 
@@ -25,8 +26,8 @@ class Lesson < ActiveRecord::Base
       transitions from: :pending_conduction, to: :pending_for_materials
     end
 
-    event :send_materials do
-      transitions from: :pending_for_materials, to: :materials_uploaded, after: :send_lesson_notification
+    event :send_materials, after_commit: [:send_lesson_notification, :create_lesson_materials_uploaded_activity] do
+      transitions from: :pending_for_materials, to: :materials_uploaded
     end
   end
 
@@ -50,5 +51,17 @@ class Lesson < ActiveRecord::Base
 
   def send_lesson_notification
     ScheduleMaterialsUploadedNotificationWorker.perform_async(id)
+  end
+
+  def create_lesson_materials_uploaded_activity
+    course.participants.pluck(:user_id).each do |recipient_id|
+      Activity.create!(
+        owner_id: user_id,
+        recipient_id: recipient_id,
+        trackable: self,
+        kind: Activity::KIND_LESSON_MATERIALS_UPLOADED,
+        message: "Materials for Lesson '#{title}' of '#{course.title}' course was uploaded!"
+      )
+    end
   end
 end

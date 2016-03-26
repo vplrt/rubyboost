@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   namespace :users do
     resource :profile, only: [:edit, :update], controller: :profile
     resources :courses
+    resources :activities, only: :index
   end
 
   scope module: 'users' do

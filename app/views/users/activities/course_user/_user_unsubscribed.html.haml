@@ -1,0 +1,5 @@
+.post
+  %p= activity.message
+  %span.description
+    = time_ago_in_words(activity.created_at)
+    ago
