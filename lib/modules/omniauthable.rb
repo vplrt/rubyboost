@@ -18,8 +18,12 @@ module Omniauthable
     end
 
     def self.create_with_oauth(oauth_data)
-      first_name, last_name = parse_name(oauth_data)
-      user = User.new(profile_attributes: { first_name: first_name, last_name: last_name })
+      if oauth_data.size > 2
+        first_name, last_name = parse_name(oauth_data)
+        user = User.new(profile_attributes: { first_name: first_name, last_name: last_name })
+      else
+        user = User.new
+      end
       user.social_login = true
 
       user.save!

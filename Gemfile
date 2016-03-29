@@ -27,6 +27,9 @@ gem 'cancancan'
 gem 'rolify'
 gem 'aasm'
 gem 'draper'
+gem 'active_model_serializers'
+gem 'twitter'
+gem 'vkontakte'
 
 gem 'sidekiq', '~>3.5.4'
 gem 'sidekiq-status'
@@ -52,6 +55,7 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'bullet'
+  gem 'better_errors'
 end
 
 group :test do
@@ -59,6 +63,7 @@ group :test do
   gem 'codeclimate-test-reporter', require: nil
   gem 'capybara-webkit'
   gem 'test_after_commit'
+  gem 'json_spec'
 end
 
 group :production do

@@ -78,6 +78,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.default_url_options = { host: 'sevastopol.herokuapp.com' }
+
   ActionMailer::Base.smtp_settings = {
     address:              'smtp.sendgrid.net',
     port:                 '587',
@@ -88,3 +89,5 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 end
+
+Rails.application.routes.default_url_options[:host] = 'sevastopol.herokuapp.com'

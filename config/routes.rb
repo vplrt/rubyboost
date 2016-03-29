@@ -5,6 +5,26 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web, at: '/sidekiq'
 
+  namespace :api do
+    namespace :v1 do
+      resources :courses, only: :index do
+        scope 'user', module: 'user' do
+          resource :subscriptions, only: [:create, :destroy], controller: :course_subscriptions
+        end
+      end
+      resources :auth_tokens, only: :create
+      resources :registrations, only: :create
+
+      scope 'user/self', as: 'user', module: 'user' do
+        resources :courses, only: :index, controller: :participated_courses
+      end
+
+      scope 'user/:id', as: 'authored', module: 'user' do
+        resources :courses, only: :index, controller: :authored_courses
+      end
+    end
+  end
+
   resources :courses, only: [:index, :show] do
     resource :subscriptions, only: [:create, :destroy], controller: :course_subscriptions
     resources :lessons, except: [:edit, :update]
