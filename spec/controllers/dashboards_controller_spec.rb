@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Users::DashboardsController, type: :controller do
   describe '#show' do
-    login_user
+    login_user(:user)
+
     before { get :show }
 
     specify do

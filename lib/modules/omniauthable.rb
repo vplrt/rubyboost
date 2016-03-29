@@ -19,7 +19,6 @@ module Omniauthable
 
     def self.create_with_oauth(oauth_data)
       first_name, last_name = parse_name(oauth_data)
-
       user = User.new(profile_attributes: { first_name: first_name, last_name: last_name })
       user.social_login = true
 

@@ -1,4 +1,6 @@
 class Users::HomeworksController < Users::BaseController
+  authorize_resource
+
   def create
     @homework = lesson.homeworks.build(homework_params)
     @homework.user = current_user

@@ -1,5 +1,6 @@
 class CourseExpulsionsController < ApplicationController
   def create
+    authorize! :expel, CourseUser
     course_user.expel!
   end
 

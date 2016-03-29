@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :course do
     user
 
-    sequence(:title) { |n| "CourseTitle #{n}." }
+    title { Faker::Lorem.sentence }
     visible true
   end
 end

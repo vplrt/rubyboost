@@ -1,0 +1,33 @@
+.col-md-9
+  .box.box-primary
+    .box-header.with-border
+      %h3.box-title Participated Courses
+      .box-tools.pull-right
+        %button.btn.btn-box-tool{'data-widget' => 'collapse'}
+          %i.fa.fa-minus
+        %button.btn.btn-box-tool{'data-widget' => 'remove'}
+          %i.fa.fa-times
+    .box-body
+      %ul.products-list.product-list-in-box
+        - @dashboard.participated_courses.each do |course|
+          %li.item
+            .row
+              .col-md-9.col-xs-12
+                .product-img
+                  = image_tag(course.picture.admin_thumb, alt: 'Course picture')
+                .product-info
+                  %h4.product-title
+                    = link_to course_path(course) do
+                      = course.title
+                  %span.product-description
+                    = l(course.created_at, format: '%d %B %Y')
+              .col-md-3.col-xs-12
+                - if current_user.expelled?(course)
+                  = link_to 'Вы отчислены', course_subscriptions_path(course), method: :post, remote: true, class: 'btn disabled btn-danger btn-block btn-flat'
+                -else
+                  %div{ id: "subscription-button-#{course.id}", style: ('display: none;' if current_user.participate_in?(course)) }
+                    = link_to 'Подать заявку', course_subscriptions_path(course), method: :post, remote: true, class: 'btn btn-success btn-block btn-flat'
+                  %div{ id: "unsubscription-button-#{course.id}", style: ('display: none;' unless current_user.participate_in?(course)) }
+                    = link_to 'Отписаться', course_subscriptions_path(course), method: :delete, remote: true, class: 'btn btn-warning btn-block btn-flat'
+    .box-footer.text-center
+      = paginate @dashboard.participated_courses

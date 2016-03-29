@@ -18,5 +18,7 @@
               = l(@course.created_at, format: '%d %B %Y')
         .box-body
           = image_tag(@course.picture.thumb, alt: 'Course photo', class: 'img-responsive pad center-block')
-          %h2.box-title
-            = link_to 'View Lessons', course_lessons_path(@course)
+        .box-footer
+          .row
+            .col-md-offset-6.col-md-6
+              = link_to 'View Lessons', course_lessons_path(@course), class: 'btn btn-primary btn-block btn-flat'

@@ -2,16 +2,13 @@ class CourseSubscriptionsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
+    authorize! :subscribe, CourseUser
     course.participants << current_user
   end
 
   def destroy
-    if current_user.expelled?(course)
-      flash[:error] = 'Вы были отчислены с курса.'
-      redirect_to root_path
-    else
-      course.course_users.where(user_id: current_user).first.destroy
-    end
+    authorize! :unsubscribe, CourseUser
+    course.course_users.where(user_id: current_user).first.destroy
   end
 
   private

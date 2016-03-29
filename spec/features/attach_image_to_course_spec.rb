@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 feature 'Attach picture to course' do
-  given(:user) { create(:user) }
+  given(:coach) { create(:coach) }
 
   background do
-    signin(user.email, user.password)
+    signin(coach.email, coach.password)
     visit new_users_course_path
   end
 

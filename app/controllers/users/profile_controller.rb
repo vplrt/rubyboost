@@ -1,4 +1,6 @@
 class Users::ProfileController < Users::BaseController
+  authorize_resource
+
   def edit
   end
 
