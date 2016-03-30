@@ -11,7 +11,6 @@ feature 'Create' do
   scenario 'Course author is able to create lesson.' do
     visit new_course_lesson_path course
     fill_in 'Title', with: 'Test course.'
-    # select 'June', from: 'lesson[date(2i)]'
     fill_in 'Description', with: 'Test description'
     fill_in 'Notes', with: 'Test notes.'
     fill_in 'Homework', with: 'Test homework'

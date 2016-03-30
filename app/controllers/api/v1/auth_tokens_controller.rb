@@ -41,9 +41,15 @@ class Api::V1::AuthTokensController < Api::V1::BaseController
   end
 
   def find_or_create_oauth_user
-    oauth_data = OmniAuth::AuthHash.new(provider: params[:service_name], uid: send("#{params[:service_name]}_uid"))
+    oauth_data = OmniAuth::AuthHash.new(provider: params[:service_name], uid: uid)
     user = User.find_or_create_with_oauth(oauth_data)
     user.register_social_profile(oauth_data.provider, oauth_data.uid)
     user
+  end
+
+  def uid
+    return twitter_uid if params[:service_name] == 'twitter'
+    return vkontakte_uid if params[:service_name] == 'vkontakte'
+    nil
   end
 end

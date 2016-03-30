@@ -42,14 +42,5 @@ RSpec.describe Lesson, type: :model do
       lesson.send_materials!
       expect(lesson.materials_uploaded?).to eq true
     end
-
-    it 'send_materials creates new activity feed' do
-      lesson.course.participants << user
-
-      expect do
-        lesson.conduct_lesson!
-        lesson.send_materials!
-      end.to change(Activity, :count).by(1)
-    end
   end
 end

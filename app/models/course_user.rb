@@ -24,32 +24,24 @@ class CourseUser < ActiveRecord::Base
   end
 
   def create_user_subscribed_activity
-    Activity.create!(
-      owner_id: user_id,
-      recipient_id: user_id,
-      trackable: self,
-      kind: Activity::KIND_USER_SUBSCRIBED,
-      message: "You subscribed to course: #{course.title}"
-    )
+    create_activity(Activity::KIND_USER_SUBSCRIBED, "You subscribed to course: #{course.title}")
   end
 
   def create_user_unsubscribed_activity
-    Activity.create!(
-      owner_id: user_id,
-      recipient_id: user_id,
-      trackable: self,
-      kind: Activity::KIND_USER_UNSUBSCRIBED,
-      message: "You unsubscribed from course: #{course.title}"
-    )
+    create_activity(Activity::KIND_USER_UNSUBSCRIBED, "You unsubscribed from course: #{course.title}")
   end
 
   def create_user_expelled_activity
+    create_activity(Activity::KIND_USER_EXPELLED, "You have been expelled from course: #{course.title}", course.user_id)
+  end
+
+  def create_activity(kind, message, owner_id=user_id, recipient_id=user_id, trackable=self)
     Activity.create!(
-      owner_id: course.user_id,
-      recipient_id: user_id,
-      trackable: self,
-      kind: Activity::KIND_USER_EXPELLED,
-      message: "You have been expelled from course: #{course.title}"
+      owner_id: owner_id,
+      recipient_id: recipient_id,
+      trackable: trackable,
+      kind: kind,
+      message: message
     )
   end
 end

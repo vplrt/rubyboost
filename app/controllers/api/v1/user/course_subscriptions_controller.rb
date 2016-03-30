@@ -1,5 +1,6 @@
 class Api::V1::User::CourseSubscriptionsController < Api::V1::User::BaseController
   def create
+    authorize! :subscribe, course_user if course_user
     if current_user.email.present?
       course.participants << current_user
       respond_with_success course
@@ -14,7 +15,7 @@ class Api::V1::User::CourseSubscriptionsController < Api::V1::User::BaseControll
       course_user.destroy
       respond_with_success course
     else
-      render json: { success: false, errors_messages: "Can't unsubsctibe from this course." }, status: 400
+      render json: { success: false, errors_messages: "Can't unsubscribe from this course." }, status: 400
     end
   end
 
@@ -25,6 +26,6 @@ class Api::V1::User::CourseSubscriptionsController < Api::V1::User::BaseControll
   end
 
   def course_user
-    course.course_users.where(user_id: current_user).first
+    @course_user ||= course.course_users.where(user_id: current_user).first
   end
 end

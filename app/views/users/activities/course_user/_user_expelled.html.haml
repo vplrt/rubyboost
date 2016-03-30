@@ -4,7 +4,7 @@
     %span.username
       = activity.owner.full_name if activity.owner.first_name.present?
     %span.description
-      Expelled you fro course
+      Expelled you from course
       = time_ago_in_words(activity.created_at)
       ago
   %p= activity.message

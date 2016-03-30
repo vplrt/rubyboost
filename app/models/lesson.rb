@@ -54,14 +54,6 @@ class Lesson < ActiveRecord::Base
   end
 
   def create_lesson_materials_uploaded_activity
-    course.participants.pluck(:user_id).each do |recipient_id|
-      Activity.create!(
-        owner_id: user_id,
-        recipient_id: recipient_id,
-        trackable: self,
-        kind: Activity::KIND_LESSON_MATERIALS_UPLOADED,
-        message: "Materials for Lesson '#{title}' of '#{course.title}' course was uploaded!"
-      )
-    end
+    MaterialsUploadedActivityWorker.perform_async(id)
   end
 end

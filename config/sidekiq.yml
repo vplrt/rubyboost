@@ -8,6 +8,7 @@
 :concurrency:  2
 :queues:
   - notifications
+  - feeds
   - default
 
 production:
