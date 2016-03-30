@@ -40,7 +40,12 @@ Rails.application.routes.draw do
     resource :dashboard, only: :show
 
     scope '/lessons/:lesson_id' do
-      resources :homeworks
+      resources :homeworks, only: [:show, :index, :create] do
+        member do
+          put 'approve', to: 'homeworks#approve'
+          put 'reject', to: 'homeworks#reject'
+        end
+      end
     end
   end
 

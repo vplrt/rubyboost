@@ -15,7 +15,7 @@ class Homework < ActiveRecord::Base
     state :rejected
 
     event :approve, after_commit: [:send_homework_state_notification, :create_homework_activity] do
-      transitions from: :pending, to: :approved
+      transitions to: :approved
     end
 
     event :reject, after_commit: [:send_homework_state_notification, :create_homework_activity] do

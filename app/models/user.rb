@@ -1,3 +1,4 @@
+# rubocop: disable Style/RedundantSelf
 class User < ActiveRecord::Base
   rolify
   include Omniauthable
@@ -45,7 +46,7 @@ class User < ActiveRecord::Base
   end
 
   def ensure_authentication_token
-    return unless authentication_token.blank?
+    return unless self.authentication_token.blank?
     self.authentication_token = generate_authentication_token
   end
 

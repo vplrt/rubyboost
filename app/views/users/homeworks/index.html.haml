@@ -1,0 +1,31 @@
+= provide(:title, "Homeworks for lesson: #{lesson.title}")
+
+%section.content
+  .row
+    .col-xs-12
+      .box
+        .box-header
+          %h1.box-title
+            %b
+              Homeworks for lesson:
+              = lesson.title
+        .box-body.table-responsive.no-padding
+          %table.table.table-hover.fa-hover
+            %tr
+              %th User
+              %th Created at
+              %th Link
+              %th State
+
+            - @homeworks.each do |homework|
+              %tr
+                %td= homework.user.email
+                %td= homework.created_at
+                %td= link_to 'View', homework_path(lesson, homework), class: 'btn btn-md btn-primary'
+                %td
+                  - if homework.approved?
+                    %span.label.label-success
+                      Approved
+                  -elsif homework.rejected?
+                    %span.label.label-danger
+                      Rejected
