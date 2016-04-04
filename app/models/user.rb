@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :homeworks, dependent: :destroy
   has_many :feeds, class_name: 'Activity', foreign_key: :recipient_id, dependent: :destroy
   has_many :actions, class_name: 'Activity', foreign_key: :owner_id, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   before_save  :ensure_authentication_token
   after_create :create_user_profile

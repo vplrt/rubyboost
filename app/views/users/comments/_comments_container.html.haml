@@ -1,0 +1,26 @@
+%h3
+  Comments
+  (
+  = parent.comments.size
+  )
+- if parent.comments.size > 0
+  - parent.comments.includes(user: [:profile]).each do |comment|
+    .post
+      .user-block
+        = image_tag 'user1-128x128.jpg', class: 'img img-circle img-bordered-sm', alt: 'user image'
+        %span.username
+          = comment.user.full_name if comment.user.first_name.present?
+        %span.description
+          = time_ago_in_words(comment.created_at)
+          ago
+      %p= comment.body
+      - if can? :destroy, comment
+        .pull-right
+          = link_to 'Delete', parent_comment_path(parent, comment), data: { confirm: 'Are you sure?' }, method: :delete, remote: true
+      %br
+- else
+  %p No Comments
+%h4 Add new comment:
+= simple_form_for [parent, Comment.new], remote: true do |f|
+  = f.input :body, required: true, label: false
+  = f.button :submit, 'Add comment', class: 'btn btn-primary btn-block btn-flat'

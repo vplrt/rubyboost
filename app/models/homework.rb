@@ -5,6 +5,7 @@ class Homework < ActiveRecord::Base
   belongs_to :lesson
 
   has_many :activities, as: :trackable, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
 
   validates :body, presence: true
   validates :user_id, uniqueness: { scope: :lesson_id, allow_blank: false }

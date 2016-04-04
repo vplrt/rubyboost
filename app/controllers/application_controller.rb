@@ -5,7 +5,12 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
-  rescue_from CanCan::AccessDenied, with: :not_autorized
+  rescue_from CanCan::AccessDenied do
+    respond_to do |format|
+      format.html { not_autorized }
+      format.js   { render nothing: true, status: :forbidden }
+    end
+  end
 
   private
 

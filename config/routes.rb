@@ -47,6 +47,14 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    resources :lessons, only: [] do
+      resources :comments, only: [:create, :destroy]
+    end
+
+    resources :homeworks, only: [] do
+      resources :comments, only: [:create, :destroy]
+    end
   end
 
   post '/courses/:course_id/participants/:user_id/expel', to: 'course_expulsions#create', as: :expel_course_participant

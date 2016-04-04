@@ -28,11 +28,14 @@
           %p= @lesson.homework
           #homework_container
             = render 'homework_container', homework: @homework, lesson: @lesson
-          .row
-            .col-md-4
-              = link_to 'Back to lessons', course_lessons_path(course), class: "btn btn-primary btn-block btn-flat"
-            #send-button
-              .col-md-offset-4.col-md-4
-                - unless @lesson.user_homework(current_user)
-                  %button.btn.btn-primary.btn-block.btn-flat{'data-target' => '#mynewpost', 'data-toggle' => 'modal', type: 'button'}
-                    Send hometask
+          #comments_container
+            = render 'users/comments/comments_container', parent: @lesson
+          .box-footer
+            .row
+              .col-md-4
+                = link_to 'Back to lessons', course_lessons_path(course), class: 'btn btn-primary btn-block btn-flat'
+              #send-button
+                .col-md-offset-4.col-md-4
+                  - unless @lesson.user_homework(current_user)
+                    %button.btn.btn-success.btn-block.btn-flat{'data-target' => '#mynewpost', 'data-toggle' => 'modal', type: 'button'}
+                      Send hometask

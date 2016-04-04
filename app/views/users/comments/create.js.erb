@@ -1,0 +1,4 @@
+$('#comments_container').html('');
+$('#flash').html('');
+$('#flash').prepend('<%= j render 'layouts/partials/flash_messages', flash: flash %>');
+$('#comments_container').prepend('<%= j render 'users/comments/comments_container', parent: parent %>');

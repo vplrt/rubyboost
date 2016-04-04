@@ -24,7 +24,12 @@ describe Ability do
     it { should_not be_able_to [:create, :update, :destroy], Course }
     it { should_not be_able_to [:create, :update, :destroy], Lesson }
     it { should be_able_to :create, Homework }
-    it { should_not be_able_to [:read, :approve, :reject], Homework }
+    it { should be_able_to :read, Homework, user_id: user.id }
+    it { should_not be_able_to :read, create(:homework, user: other), user_id: user.id }
+    it { should_not be_able_to [:approve, :reject], Homework }
+    it { should be_able_to :create, Comment }
+    it { should be_able_to :destroy, Comment, user_id: user.id }
+    it { should_not be_able_to :destroy, create(:comment, user: other), user_id: user.id }
   end
 
   describe 'for coach' do

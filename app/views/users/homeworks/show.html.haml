@@ -12,5 +12,8 @@
           = l(@homework.created_at, format: '%d %B %Y')
         .box-body
           %p= @homework.body
-        .box-footer
-          = render 'state', homework: @homework
+          #comments_container
+            = render 'users/comments/comments_container', parent: @homework
+        - if can? :approve, @homework
+          .box-footer
+            = render 'state', homework: @homework

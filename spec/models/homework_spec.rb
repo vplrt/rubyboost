@@ -12,6 +12,7 @@ RSpec.describe Homework, type: :model do
   it { should belong_to :lesson }
 
   it { should have_many :activities }
+  it { should have_many :comments }
 
   describe '#state' do
     let(:homework) { create :homework }
