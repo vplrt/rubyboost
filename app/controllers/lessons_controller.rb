@@ -35,7 +35,7 @@ class LessonsController < Users::BaseController
   private
 
   def lesson_params
-    params.require(:lesson).permit(:title, :position, :description, :notes, :homework, :picture)
+    params.require(:lesson).permit(:title, :position, :description, :notes, :homework, :picture, :date)
   end
 
   def find_lesson

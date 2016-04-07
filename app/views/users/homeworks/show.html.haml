@@ -1,0 +1,16 @@
+= provide(:title, 'Homework')
+
+%section.content
+  .row
+    .col-md-offset-3.col-md-6
+      .box.box-widget
+        .box-header.with-border
+          %h1
+            Homework of user:
+            = @homework.user.email
+          Created at
+          = l(@homework.created_at, format: '%d %B %Y')
+        .box-body
+          %p= @homework.body
+        .box-footer
+          = render 'state', homework: @homework

@@ -1,0 +1,10 @@
+.post
+  .user-block
+    = image_tag 'user1-128x128.jpg', class: 'img img-circle img-bordered-sm', alt: 'user image'
+    %span.username
+      = activity.owner.full_name if activity.owner.first_name.present?
+    %span.description
+      Expelled you from course
+      = time_ago_in_words(activity.created_at)
+      ago
+  %p= activity.message

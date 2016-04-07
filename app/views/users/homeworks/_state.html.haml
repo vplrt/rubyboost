@@ -1,0 +1,11 @@
+.row
+  .col-md-4
+    - if homework.rejected?
+      = link_to 'Rejected', approve_homework_path(lesson, homework), class: 'btn disabled btn-danger btn-block btn-flat'
+    - if homework.pending?
+      = link_to 'Reject', reject_homework_path(lesson, homework), method: :put, remote: true, class: "btn btn-primary btn-block btn-flat"
+  .col-md-offset-4.col-md-4
+    - if homework.approved?
+      = link_to 'Approved', approve_homework_path(lesson, homework), class: 'btn disabled btn-success btn-block btn-flat'
+    - else
+      = link_to 'Approve', approve_homework_path(lesson, homework), method: :put, remote: true, class: 'btn btn-primary btn-block btn-flat'

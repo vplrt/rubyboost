@@ -18,6 +18,8 @@
               = l(@lesson.created_at, format: '%d %B %Y')
         .box-body
           = image_tag(@lesson.picture.thumb, alt: 'Lesson photo', class: 'img-responsive pad center-block')
+          %h3 Date
+          %p= @lesson.date.strftime('%c')
           %h3 Description
           %p= @lesson.description
           %h3 Notes

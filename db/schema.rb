@@ -11,10 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314195820) do
+ActiveRecord::Schema.define(version: 20160326190736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "recipient_id"
+    t.integer  "owner_id"
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.string   "kind"
+    t.string   "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["kind"], name: "index_activities_on_kind", using: :btree
+  add_index "activities", ["owner_id"], name: "index_activities_on_owner_id", using: :btree
+  add_index "activities", ["recipient_id"], name: "index_activities_on_recipient_id", using: :btree
+  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "course_users", force: :cascade do |t|
     t.integer  "user_id"
@@ -44,9 +60,11 @@ ActiveRecord::Schema.define(version: 20160314195820) do
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "state"
   end
 
   add_index "homeworks", ["lesson_id"], name: "index_homeworks_on_lesson_id", using: :btree
+  add_index "homeworks", ["state"], name: "index_homeworks_on_state", using: :btree
   add_index "homeworks", ["user_id", "lesson_id"], name: "index_homeworks_on_user_id_and_lesson_id", unique: true, using: :btree
   add_index "homeworks", ["user_id"], name: "index_homeworks_on_user_id", using: :btree
 
@@ -61,10 +79,13 @@ ActiveRecord::Schema.define(version: 20160314195820) do
     t.integer  "course_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.datetime "date",        null: false
+    t.string   "state"
   end
 
   add_index "lessons", ["course_id"], name: "index_lessons_on_course_id", using: :btree
   add_index "lessons", ["position"], name: "index_lessons_on_position", using: :btree
+  add_index "lessons", ["state"], name: "index_lessons_on_state", using: :btree
   add_index "lessons", ["user_id"], name: "index_lessons_on_user_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
@@ -112,8 +133,10 @@ ActiveRecord::Schema.define(version: 20160314195820) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "authentication_token"
   end
 
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "users_roles", id: false, force: :cascade do |t|

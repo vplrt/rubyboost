@@ -8,5 +8,6 @@ FactoryGirl.define do
     description { Faker::Lorem.paragraph(2) }
     sequence(:notes) { Faker::Lorem.paragraph(2) }
     sequence(:homework) { Faker::Lorem.paragraph(2) }
+    sequence(:date) { Faker::Time.forward(23, :morning) }
   end
 end

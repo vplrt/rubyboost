@@ -17,6 +17,13 @@ Bundler.require(*Rails.groups)
 
 module Rubyboost
   class Application < Rails::Application
+    config.autoload_paths += %W(
+      #{config.root}/app/services
+    )
+
+    config.eager_load_paths += %W(
+      #{config.root}/app/services
+    )
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -46,3 +53,4 @@ module Rubyboost
 end
 
 require Rails.root.join 'lib', 'modules', 'omniauthable'
+require Rails.root.join 'lib', 'modules', 'simple_service_result'

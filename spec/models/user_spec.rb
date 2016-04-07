@@ -10,6 +10,8 @@ RSpec.describe User, type: :model do
   it { should have_many :courses }
   it { should have_many :course_users }
   it { should have_many :participated_courses }
+  it { should have_many :feeds }
+  it { should have_many :actions }
 
   it { should accept_nested_attributes_for :profile }
 

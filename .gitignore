@@ -35,3 +35,4 @@ config/database.yml
 /coverage/*
 
 .env
+dump.rdb

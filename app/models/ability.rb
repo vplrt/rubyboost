@@ -18,16 +18,16 @@ class Ability
     guest_abilities
 
     can :read, :dashboard
-
     can :read, Lesson do |lesson|
       !user.expelled?(lesson.course) && lesson.course.participants.pluck(:id).include?(user.id)
     end
 
-    can :manage, [Profile, Homework], user_id: user.id
+    can :manage, [Profile], user_id: user.id
+    can :create, Homework
+    cannot [:read, :approve, :reject], Homework
 
-    can [:subscribe, :unsubscribe], CourseUser do |course_user|
-      !user.expelled?(course_user.course)
-    end
+    can [:subscribe], CourseUser
+    can [:unsubscribe], CourseUser, user_id: user.id
   end
 
   def coach_abilities(user)
@@ -38,5 +38,9 @@ class Ability
     end
 
     can :manage, [Course, Lesson], user_id: user.id
+
+    can [:read, :approve, :reject], Homework do |homework|
+      homework.lesson.user_id == user.id
+    end
   end
 end

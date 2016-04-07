@@ -1,5 +1,29 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+
+  mount Sidekiq::Web, at: '/sidekiq'
+
+  namespace :api do
+    namespace :v1 do
+      resources :courses, only: :index do
+        scope 'user', module: 'user' do
+          resource :subscriptions, only: [:create, :destroy], controller: :course_subscriptions
+        end
+      end
+      resources :auth_tokens, only: :create
+      resources :registrations, only: :create
+
+      scope 'user/self', as: 'user', module: 'user' do
+        resources :courses, only: :index, controller: :participated_courses
+      end
+
+      scope 'user/:id', as: 'authored', module: 'user' do
+        resources :courses, only: :index, controller: :authored_courses
+      end
+    end
+  end
 
   resources :courses, only: [:index, :show] do
     resource :subscriptions, only: [:create, :destroy], controller: :course_subscriptions
@@ -9,13 +33,19 @@ Rails.application.routes.draw do
   namespace :users do
     resource :profile, only: [:edit, :update], controller: :profile
     resources :courses
+    resources :activities, only: :index
   end
 
   scope module: 'users' do
     resource :dashboard, only: :show
 
     scope '/lessons/:lesson_id' do
-      resources :homeworks
+      resources :homeworks, only: [:show, :index, :create] do
+        member do
+          put 'approve', to: 'homeworks#approve'
+          put 'reject', to: 'homeworks#reject'
+        end
+      end
     end
   end
 

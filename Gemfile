@@ -25,6 +25,19 @@ gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 gem 'cancancan'
 gem 'rolify'
+gem 'aasm'
+gem 'draper'
+gem 'active_model_serializers'
+gem 'twitter'
+gem 'vkontakte'
+
+gem 'sidekiq', '~>3.5.4'
+gem 'sidekiq-status'
+gem 'sidekiq-failures'
+gem 'sidekiq-unique-jobs'
+gem 'sinatra', require: false
+gem 'slim'
+gem 'foreman'
 
 group :development, :test do
   gem 'byebug'
@@ -35,18 +48,22 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'faker'
   gem 'dotenv-rails', require: 'dotenv/rails-now'
+  gem 'letter_opener'
 end
 
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'bullet'
+  gem 'better_errors'
 end
 
 group :test do
   gem 'shoulda-matchers'
   gem 'codeclimate-test-reporter', require: nil
   gem 'capybara-webkit'
+  gem 'test_after_commit'
+  gem 'json_spec'
 end
 
 group :production do
