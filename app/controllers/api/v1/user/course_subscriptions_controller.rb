@@ -1,31 +1,29 @@
 class Api::V1::User::CourseSubscriptionsController < Api::V1::User::BaseController
+  before_action :find_course
+
   def create
-    authorize! :subscribe, course_user if course_user
-    if current_user.email.present?
-      course.participants << current_user
-      respond_with_success course
-    else
-      render json: { success: false, errors_messages: 'Please fill in your email and password, before.' }, status: 422
-    end
+    authorize! :subscribe, CourseUser
+    result = ManageUserSubscriptionsService.subscribe(@course, current_user)
+    form_respond result
   end
 
   def destroy
-    if current_user.participate_in?(course)
-      authorize! :unsubscribe, course_user
-      course_user.destroy
-      respond_with_success course
-    else
-      render json: { success: false, errors_messages: "Can't unsubscribe from this course." }, status: 400
-    end
+    authorize! :unsubscribe, CourseUser
+    result = ManageUserSubscriptionsService.unsubscribe(@course, current_user)
+    form_respond result
   end
 
   private
 
-  def course
-    @course ||= Course.find(params[:course_id])
+  def form_respond(result)
+    if result.success?
+      respond_with_success result.message
+    else
+      render json: { success: false, message: result.message }, status: result.status
+    end
   end
 
-  def course_user
-    @course_user ||= course.course_users.where(user_id: current_user).first
+  def find_course
+    @course ||= Course.find(params[:course_id])
   end
 end

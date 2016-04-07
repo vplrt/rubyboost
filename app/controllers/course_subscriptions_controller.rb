@@ -3,18 +3,16 @@ class CourseSubscriptionsController < ApplicationController
 
   def create
     authorize! :subscribe, CourseUser
+    result = ManageUserSubscriptionsService.subscribe(course, current_user)
+    return if result.success?
 
-    if current_user.email.present?
-      course.participants << current_user
-    else
-      flash[:alert] = 'Please fill in your email and password, before.'
-      render js: "window.location = '#{edit_users_profile_path}'"
-    end
+    flash[:alert] = result.message
+    render js: "window.location = '#{edit_users_profile_path}'"
   end
 
   def destroy
     authorize! :unsubscribe, CourseUser
-    course.course_users.where(user_id: current_user).first.destroy
+    ManageUserSubscriptionsService.unsubscribe(course, current_user)
   end
 
   private

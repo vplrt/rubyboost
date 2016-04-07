@@ -1,5 +1,4 @@
 # rubocop: disable Metrics/AbcSize
-# rubocop: disable Metrics/MethodLength
 class Ability
   include CanCan::Ability
 
@@ -27,9 +26,8 @@ class Ability
     can :create, Homework
     cannot [:read, :approve, :reject], Homework
 
-    can [:subscribe, :unsubscribe], CourseUser do |course_user|
-      !user.expelled?(course_user.course)
-    end
+    can [:subscribe], CourseUser
+    can [:unsubscribe], CourseUser, user_id: user.id
   end
 
   def coach_abilities(user)
