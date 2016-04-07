@@ -3,7 +3,7 @@
     .form-group
       = f.input :title
     .form-group
-      = f.input :picture, as: :file
+      = f.input :picture, as: :image_preview, input_html: { preview_version: :thumb }
       %p.help-block Выберите файл для добавления
     .form-group
       = f.input :visible, as: :radio_buttons, input_html: { class: 'minimal' }

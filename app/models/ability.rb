@@ -1,4 +1,5 @@
 # rubocop: disable Metrics/AbcSize
+# rubocop: disable Metrics/MethodLength
 class Ability
   include CanCan::Ability
 
