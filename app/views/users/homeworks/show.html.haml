@@ -13,7 +13,22 @@
         .box-body
           %p= @homework.body
           #comments_container
-            = render 'users/comments/comments_container', parent: @homework
+            = render 'comments/comments_container', parent: @homework, comment: current_user.comments.build
         - if can? :approve, @homework
+          #reject_comment.modal.fade{'aria-hidden' => 'true', 'aria-labelledby' => 'myModalLabel', role: 'dialog', tabindex: '-1'}
+            = simple_form_for [@homework, @comment_for_reject], url: reject_homework_path(lesson, @homework), method: :put, remote: true do |f|
+              .modal-dialog
+                .modal-content
+                  .modal-header
+                    %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', type: 'button'}
+                      %span{'aria-hidden' => 'true'} &times;
+                    %h4#myModalLabel.modal-title Please write reject comment
+                  .modal-body
+                    = f.error_notification
+                    .field
+                      = f.input :body, required: true, label: false
+                  .modal-footer
+                    %button.btn.btn-primary{'data-dismiss' => 'modal', type: 'button'} Close
+                    = f.button :submit, 'Reject', class: 'btn btn-primary'
           .box-footer
             = render 'state', homework: @homework

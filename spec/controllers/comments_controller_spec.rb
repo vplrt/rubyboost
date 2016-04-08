@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Users::CommentsController, type: :controller do
+RSpec.describe CommentsController, type: :controller do
   let(:user) { create :user }
   let(:lesson_comment) { create :lesson_comment, user: subject.current_user }
   let(:homework_comment) { create :homework_comment, user: subject.current_user }

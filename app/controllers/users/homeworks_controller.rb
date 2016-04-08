@@ -3,6 +3,7 @@ class Users::HomeworksController < Users::BaseController
   authorize_resource
 
   def show
+    @comment_for_reject = current_user.comments.build
   end
 
   def index
@@ -16,11 +17,19 @@ class Users::HomeworksController < Users::BaseController
   end
 
   def approve
+    authorize! :approve, Homework
     @homework.approve!
+    flash.now[:success] = 'Homework was approved!'
   end
 
   def reject
-    @homework.reject!
+    authorize! :reject, Homework
+    result = Homeworks::RejectService.perform(@homework, current_user, reject_params[:body])
+
+    unless result.success?
+      @comment_for_reject = result.comment_for_reject
+      flash.now[:alert] = 'Please comment homework, when rejecting.'
+    end
   end
 
   private
@@ -31,6 +40,10 @@ class Users::HomeworksController < Users::BaseController
 
   def homework_params
     params.require(:homework).permit(:body)
+  end
+
+  def reject_params
+    params.require(:comment).permit(:body)
   end
 
   def lesson

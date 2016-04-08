@@ -1,15 +1,15 @@
-class Users::CommentsController < ApplicationController
+class CommentsController < ApplicationController
   before_action :find_comment, only: :destroy
   authorize_resource
 
   def create
-    comment = current_user.comments.build(permitted_params)
-    comment.commentable = parent
+    @comment = current_user.comments.build(permitted_params)
+    @comment.commentable = parent
 
-    if comment.save
+    if @comment.save
       flash.now[:success] = 'Comment was succesfully saved'
     else
-      flash.now[:error] = 'Something goes wrong'
+      render :new
     end
   end
 

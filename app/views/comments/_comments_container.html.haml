@@ -21,6 +21,7 @@
 - else
   %p No Comments
 %h4 Add new comment:
-= simple_form_for [parent, Comment.new], remote: true do |f|
+= simple_form_for [parent, comment], remote: true do |f|
+  = f.error_notification
   = f.input :body, required: true, label: false
   = f.button :submit, 'Add comment', class: 'btn btn-primary btn-block btn-flat'

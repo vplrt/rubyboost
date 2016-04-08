@@ -1,2 +1,7 @@
+$('#reject_comment').modal('hide');
+$('#comments_container').html('');
+$('#flash').html('');
 $('.box-footer').html('');
+$('#flash').prepend('<%= j render 'layouts/partials/flash_messages', flash: flash %>');
+$('#comments_container').prepend('<%= j render 'comments/comments_container', parent: @homework, comment: current_user.comments.build %>');
 $('.box-footer').append('<%= j render('state', homework: @homework) %>');

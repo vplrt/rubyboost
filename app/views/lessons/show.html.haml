@@ -29,7 +29,7 @@
           #homework_container
             = render 'homework_container', homework: @homework, lesson: @lesson
           #comments_container
-            = render 'users/comments/comments_container', parent: @lesson
+            = render 'comments/comments_container', parent: @lesson, comment: current_user.comments.build
           .box-footer
             .row
               .col-md-4

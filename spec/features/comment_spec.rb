@@ -21,7 +21,7 @@ feature 'Comment' do
         wait_for_ajax
       end.to change(Comment, :count).by(1)
 
-      expect(page).to have_content 'Comment was succesfully saved'
+      expect(page).to have_content Comment.last.body
     end
 
     scenario 'user is able to delete comment', js: true do
@@ -46,7 +46,7 @@ feature 'Comment' do
         wait_for_ajax
       end.to change(Comment, :count).by(1)
 
-      expect(page).to have_content 'Comment was succesfully saved'
+      expect(page).to have_content Comment.last.body
     end
 
     scenario 'user is able to delete comment', js: true do
