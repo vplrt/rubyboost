@@ -12,10 +12,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  rescue_from ActiveRecord::RecordNotFound,
+              ActionController::RoutingError,
+              ActiveRecord::RecordInvalid,
+              with: :redirect_with_error
+
   private
 
   def layout_by_resource
     devise_controller? ? 'devise_layout' : 'application'
+  end
+
+  def redirect_with_error
+    flash[:error] = 'Something goes wrong'
+    redirect_to root_path
   end
 
   def not_autorized
