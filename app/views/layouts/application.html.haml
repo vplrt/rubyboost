@@ -15,6 +15,7 @@
       = render 'layouts/partials/header'
       = render 'layouts/partials/sidebar'
       .content-wrapper
-        = render 'layouts/partials/flash_messages', flash: flash
+        #flash
+          = render 'layouts/partials/flash_messages', flash: flash
         = yield
       = render 'layouts/partials/footer'

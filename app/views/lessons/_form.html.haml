@@ -13,7 +13,7 @@
     .form-group
       = f.input :homework
     .form-group
-      = f.input :picture, as: :file
+      = f.input :picture, as: :image_preview, input_html: { preview_version: :thumb }
       %p.help-block Выберите файл для добавления
     .box-footer
       = f.button :submit, 'Save', class: 'btn btn-primary btn-block btn-flat'

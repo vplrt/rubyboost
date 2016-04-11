@@ -26,7 +26,7 @@ RSpec.describe CourseSubscriptionsController, type: :controller do
   end
 
   describe '#destroy' do
-    it 'deletes current user from course participants ' do
+    it 'deletes current user from course participants' do
       post :create, course_id: course.id, format: :js
       expect { delete :destroy, course_id: course.id, format: :js }.to change(course.participants, :count).by(-1)
     end

@@ -8,6 +8,7 @@ AllCops:
     - 'bin/*'
     - 'db/schema.rb'
     - 'db/migrate/*'
+    - 'app/inputs/image_preview_input.rb'
   TargetRubyVersion: 2.2
   DisplayCopNames: true
 

@@ -5,6 +5,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :course
   has_many :homeworks, dependent: :destroy
   has_many :activities, as: :trackable, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
 
   scope :by_position, -> { order(position: :asc) }
 

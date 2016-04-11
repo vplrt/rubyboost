@@ -1,2 +1,4 @@
 $('.box-footer').html('');
+$('#flash').html('');
+$('#flash').prepend('<%= j render 'layouts/partials/flash_messages', flash: flash %>');
 $('.box-footer').append('<%= j render('state', homework: @homework) %>');

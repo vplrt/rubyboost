@@ -1,6 +1,9 @@
 - if lesson.user_homework(current_user)
   %h3 Your homework:
   %p= lesson.user_homework(current_user).body
+  .pull-right
+    = link_to 'View', homework_path(lesson, lesson.user_homework(current_user))
+
 = simple_form_for([lesson, homework], url: homeworks_path(lesson), remote: true) do |f|
   #mynewpost.modal.fade{'aria-hidden' => 'true', 'aria-labelledby' => 'myModalLabel', role: 'dialog', tabindex: '-1'}
     .modal-dialog

@@ -14,6 +14,7 @@ RSpec.describe Lesson, type: :model do
   it { should belong_to :course }
 
   it { should have_many :activities }
+  it { should have_many :comments }
 
   describe '#by_position' do
     let!(:lesson_1) { create :lesson, position: 1 }
